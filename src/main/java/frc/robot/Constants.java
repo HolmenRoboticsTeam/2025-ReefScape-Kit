@@ -50,7 +50,7 @@ public final class Constants {
   public final class DriveConstants {
     public static final double maxSpeedMetersPerSec = 4.5;
     public static final double maxAngularSpeed = 2 * Math.PI;
-    public static final double odometryFrequency = 100.0; // Hz
+    public static final double odometryFrequency = 100.0; // Hz TODO: Up this value. CAN util is at ~40%, so increase til ~75%
     public static final double trackWidth = Units.inchesToMeters(29.0);
     public static final double wheelBase = Units.inchesToMeters(29.0);
     public static final double driveBaseRadius = Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
