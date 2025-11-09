@@ -172,10 +172,8 @@ public class DynamicAutoCommands {
     primaryCommandGroup.addCommands(
         AutoDriveCommands.pathFindToReef(drive, reefSide, constraints, false)
             .deadlineFor(
-                ArmControlCommands.armUpCommand(
-                        pivot, elevator, wrist, ArmPosition.STAND_BY, ArmSystem.ALL)
-                    .repeatedly()
-                    .deadlineFor(IntakeCommands.intakeRun(intake, () -> 0.0))));
+                ArmControlCommands.armHoldAtCommand(
+                    pivot, elevator, wrist, ArmPosition.HOME, ArmSystem.ALL)));
 
     // Scores on the chosen reef level
     primaryCommandGroup.addCommands(
@@ -191,18 +189,21 @@ public class DynamicAutoCommands {
                                 AutoDriveCommands.pathFindToReef(
                                     drive, reefSide, constraints, true)))));
 
+    // Pause to let the elevator move down
+    primaryCommandGroup.addCommands(
+        Commands.waitSeconds(0.75)
+            .deadlineFor(ArmControlCommands.armDownCommand(pivot, elevator, wrist, reefLevel)));
+
     // Moves to the chosen coral station
     primaryCommandGroup.addCommands(
         AutoDriveCommands.pathFindToCoralStation(drive, coralStation, constraints, false)
             .deadlineFor(
-                IntakeCommands.intakeRun(intake, () -> 0.0)
+                IntakeCommands.intakeRun(intake, () -> -1.0)
                     .alongWith(
                         ArmControlCommands.armDownCommand(pivot, elevator, wrist, reefLevel)
-                            .until(() -> wrist.getCurrentAngle() - Math.PI / 2.0 < 0.0)
                             .andThen(
-                                ArmControlCommands.armUpCommand(
-                                        pivot, elevator, wrist, ArmPosition.STAND_BY, ArmSystem.ALL)
-                                    .repeatedly()))));
+                                ArmControlCommands.armHoldAtCommand(
+                                    pivot, elevator, wrist, ArmPosition.HOME, ArmSystem.ALL)))));
 
     // Grabs coral out of the station
     primaryCommandGroup.addCommands(
