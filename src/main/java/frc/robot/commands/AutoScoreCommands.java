@@ -17,6 +17,7 @@ import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pivot.Pivot;
+import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.wrist.Wrist;
 
 /** This class is used for deming, so no docs (It's also outdated). */
@@ -24,7 +25,7 @@ public class AutoScoreCommands {
 
   // For Demoing use only
   public static Command autoDriveAndScore(
-      Drive drive, Pivot pivot, Elevator elevator, Wrist wrist, Intake intake) {
+      Drive drive, Vision vision, Pivot pivot, Elevator elevator, Wrist wrist, Intake intake) {
 
     SequentialCommandGroup primaryCommand = new SequentialCommandGroup();
 
@@ -34,7 +35,8 @@ public class AutoScoreCommands {
 
       primaryCommand.addCommands(
           new ParallelDeadlineGroup(
-              AutoDriveCommands.pathFindToCoralStation(drive, Math.random() < 0.5, null, true),
+              AutoDriveCommands.pathFindToCoralStation(
+                  drive, vision, Math.random() < 0.5, null, true),
               ArmControlCommands.armDownCommand(pivot, elevator, wrist, null),
               IntakeCommands.intakeRun(intake, () -> 0.0)));
 
@@ -61,7 +63,7 @@ public class AutoScoreCommands {
 
       primaryCommand.addCommands(
           new ParallelDeadlineGroup(
-              AutoDriveCommands.pathFindToReef(drive, getRandomSide(), null, true),
+              AutoDriveCommands.pathFindToReef(drive, vision, getRandomSide(), null, true),
               ArmControlCommands.armDownCommand(
                   pivot, elevator, wrist, ArmPosition.CORAL_STATION)));
 

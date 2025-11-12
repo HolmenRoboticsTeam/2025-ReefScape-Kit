@@ -233,7 +233,7 @@ public class RobotContainer {
     Pathfinding.setDynamicObstacles(CagePosition.opposingCages, drive.getPose().getTranslation());
 
     // Starts the arm mechanism for sim and comp matches
-    DynamicAutoCommands.setupDynamicAuto(drive, pivot, elevator, wrist, intake);
+    DynamicAutoCommands.setupDynamicAuto(drive, vision, pivot, elevator, wrist, intake);
     StateLoggingCommands.mechanismRunCurrent(pivot, elevator, wrist, intake)
         .alongWith(StateLoggingCommands.mechanismRunTarget(pivot, elevator, wrist, intake))
         .withName("mechanismCommands")
@@ -330,27 +330,29 @@ public class RobotContainer {
 
     controller
         .leftBumper()
-        .onTrue(AutoDriveCommands.pathFindToCoralStation(drive, true, null, true));
+        .onTrue(AutoDriveCommands.pathFindToCoralStation(drive, vision, true, null, true));
     controller
         .rightBumper()
-        .onTrue(AutoDriveCommands.pathFindToCoralStation(drive, false, null, true));
+        .onTrue(AutoDriveCommands.pathFindToCoralStation(drive, vision, false, null, true));
 
     controller
         .povDown()
-        .onTrue(AutoDriveCommands.pathFindToReef(drive, ReefSide.FRONT, null, true));
+        .onTrue(AutoDriveCommands.pathFindToReef(drive, vision, ReefSide.FRONT, null, true));
     controller
         .povDownLeft()
-        .onTrue(AutoDriveCommands.pathFindToReef(drive, ReefSide.FRONT_LEFT, null, true));
+        .onTrue(AutoDriveCommands.pathFindToReef(drive, vision, ReefSide.FRONT_LEFT, null, true));
     controller
         .povDownRight()
-        .onTrue(AutoDriveCommands.pathFindToReef(drive, ReefSide.FRONT_RIGHT, null, true));
-    controller.povUp().onTrue(AutoDriveCommands.pathFindToReef(drive, ReefSide.BACK, null, true));
+        .onTrue(AutoDriveCommands.pathFindToReef(drive, vision, ReefSide.FRONT_RIGHT, null, true));
+    controller
+        .povUp()
+        .onTrue(AutoDriveCommands.pathFindToReef(drive, vision, ReefSide.BACK, null, true));
     controller
         .povUpLeft()
-        .onTrue(AutoDriveCommands.pathFindToReef(drive, ReefSide.BACK_LEFT, null, true));
+        .onTrue(AutoDriveCommands.pathFindToReef(drive, vision, ReefSide.BACK_LEFT, null, true));
     controller
         .povUpRight()
-        .onTrue(AutoDriveCommands.pathFindToReef(drive, ReefSide.BACK_RIGHT, null, true));
+        .onTrue(AutoDriveCommands.pathFindToReef(drive, vision, ReefSide.BACK_RIGHT, null, true));
 
     // Used to stop any path finding happing
     controller.leftStick().onTrue(Commands.runOnce(() -> {}, drive));

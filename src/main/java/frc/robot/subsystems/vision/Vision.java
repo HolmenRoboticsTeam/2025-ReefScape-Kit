@@ -64,6 +64,10 @@ public class Vision extends SubsystemBase {
     return null;
   }
 
+  public void setLightState(boolean state, int index) {
+    this.io[index].setLightState(state);
+  }
+
   // Initialize logging values
   List<Pose3d> allTagPoses = new ArrayList<>();
   List<Pose3d> allRobotPoses = new ArrayList<>();

@@ -45,5 +45,7 @@ public interface VisionIO {
     PHOTONVISION
   }
 
+  public default void setLightState(boolean state) {}
+
   public default void updateInputs(VisionIOInputs inputs) {}
 }

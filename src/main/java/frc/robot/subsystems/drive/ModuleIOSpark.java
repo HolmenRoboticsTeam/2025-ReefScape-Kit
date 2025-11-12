@@ -17,9 +17,6 @@ import static frc.robot.util.SparkUtil.ifOk;
 import static frc.robot.util.SparkUtil.sparkStickyFault;
 import static frc.robot.util.SparkUtil.tryUntilOk;
 
-import java.util.Queue;
-import java.util.function.DoubleSupplier;
-
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -31,12 +28,13 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkClosedLoopController.ArbFFUnits;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.MotorConfigs.DriveConfig;
+import java.util.Queue;
+import java.util.function.DoubleSupplier;
 
 /**
  * Module IO implementation for Spark Flex drive motor controller, Spark Max turn motor controller,
@@ -104,7 +102,9 @@ public class ModuleIOSpark implements ModuleIO {
         5,
         () ->
             driveSpark.configure(
-                DriveConfig.driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters));
+                DriveConfig.driveConfig,
+                ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters));
     tryUntilOk(driveSpark, 5, () -> driveEncoder.setPosition(0.0));
 
     // Configure turn motor
@@ -113,7 +113,9 @@ public class ModuleIOSpark implements ModuleIO {
         5,
         () ->
             turnSpark.configure(
-                DriveConfig.turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters));
+                DriveConfig.turnConfig,
+                ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters));
 
     // Create odometry queues
     timestampQueue = SparkOdometryThread.getInstance().makeTimestampQueue();

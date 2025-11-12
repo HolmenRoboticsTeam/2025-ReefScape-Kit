@@ -20,6 +20,7 @@ import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pivot.Pivot;
+import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.wrist.Wrist;
 import frc.robot.util.Elastic;
 import frc.robot.util.Elastic.Notification;
@@ -68,6 +69,7 @@ public class DynamicAutoCommands {
       new LoggedDashboardChooser<>(networkKeyPrefix + "End after cycle");
 
   private static Drive drive;
+  private static Vision vision;
   private static Pivot pivot;
   private static Elevator elevator;
   private static Wrist wrist;
@@ -83,9 +85,10 @@ public class DynamicAutoCommands {
    * @param intake the intake subsystem
    */
   public static void setupDynamicAuto(
-      Drive drive, Pivot pivot, Elevator elevator, Wrist wrist, Intake intake) {
+      Drive drive, Vision vision, Pivot pivot, Elevator elevator, Wrist wrist, Intake intake) {
 
     DynamicAutoCommands.drive = drive;
+    DynamicAutoCommands.vision = vision;
     DynamicAutoCommands.pivot = pivot;
     DynamicAutoCommands.elevator = elevator;
     DynamicAutoCommands.wrist = wrist;
@@ -170,7 +173,7 @@ public class DynamicAutoCommands {
 
     // Moves to the chosen reef side
     primaryCommandGroup.addCommands(
-        AutoDriveCommands.pathFindToReef(drive, reefSide, constraints, false)
+        AutoDriveCommands.pathFindToReef(drive, vision, reefSide, constraints, false)
             .deadlineFor(
                 ArmControlCommands.armHoldAtCommand(
                     pivot, elevator, wrist, ArmPosition.HOME, ArmSystem.ALL)));
@@ -178,7 +181,8 @@ public class DynamicAutoCommands {
     // Scores on the chosen reef level
     primaryCommandGroup.addCommands(
         ArmControlCommands.armUpCommand(pivot, elevator, wrist, reefLevel, ArmSystem.ALL)
-            .deadlineFor(AutoDriveCommands.pathFindToReef(drive, reefSide, constraints, true))
+            .deadlineFor(
+                AutoDriveCommands.pathFindToReef(drive, vision, reefSide, constraints, true))
             .andThen(
                 IntakeCommands.intakeRun(intake, () -> 1.0)
                     .withTimeout(0.5)
@@ -187,7 +191,7 @@ public class DynamicAutoCommands {
                                 pivot, elevator, wrist, reefLevel, ArmSystem.ALL)
                             .alongWith(
                                 AutoDriveCommands.pathFindToReef(
-                                    drive, reefSide, constraints, true)))));
+                                    drive, vision, reefSide, constraints, true)))));
 
     // Pause to let the elevator move down
     primaryCommandGroup.addCommands(
@@ -196,7 +200,7 @@ public class DynamicAutoCommands {
 
     // Moves to the chosen coral station
     primaryCommandGroup.addCommands(
-        AutoDriveCommands.pathFindToCoralStation(drive, coralStation, constraints, false)
+        AutoDriveCommands.pathFindToCoralStation(drive, vision, coralStation, constraints, false)
             .deadlineFor(
                 IntakeCommands.intakeRun(intake, () -> -1.0)
                     .alongWith(
@@ -210,7 +214,8 @@ public class DynamicAutoCommands {
         ArmControlCommands.armUpCommand(
                 pivot, elevator, wrist, ArmPosition.CORAL_STATION, ArmSystem.ALL)
             .deadlineFor(
-                AutoDriveCommands.pathFindToCoralStation(drive, coralStation, constraints, true))
+                AutoDriveCommands.pathFindToCoralStation(
+                    drive, vision, coralStation, constraints, true))
             .andThen(
                 IntakeCommands.intakeRun(intake, () -> -1.0)
                     .withTimeout(2.0)
@@ -219,7 +224,7 @@ public class DynamicAutoCommands {
                                 pivot, elevator, wrist, ArmPosition.CORAL_STATION, ArmSystem.ALL)
                             .alongWith(
                                 AutoDriveCommands.pathFindToCoralStation(
-                                    drive, coralStation, constraints, true)))));
+                                    drive, vision, coralStation, constraints, true)))));
 
     return primaryCommandGroup;
   }

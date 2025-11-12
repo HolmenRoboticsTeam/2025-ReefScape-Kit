@@ -19,6 +19,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.FieldConstants.CoralPositions;
 import frc.robot.FieldConstants.ReefPositions;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.vision.Vision;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
@@ -62,7 +63,11 @@ public class AutoDriveCommands {
    * @return A command with the given logic
    */
   public static Command pathFindToReef(
-      Drive drive, ReefSide faceOfReef, PathConstraints constraints, boolean withPreciseMove) {
+      Drive drive,
+      Vision vision,
+      ReefSide faceOfReef,
+      PathConstraints constraints,
+      boolean withPreciseMove) {
 
     // If no constraints are given, use the DriveConstants max.
     if (constraints == null) {
@@ -106,7 +111,7 @@ public class AutoDriveCommands {
       // Appends the precise move command
       return new SequentialCommandGroup(
               AutoBuilder.pathfindToPose(targetPose, constraints, 0.0),
-              preciseMoveToPose(drive, targetPose))
+              preciseMoveToPose(drive, vision, targetPose))
           .withName("pathFindToReef");
     }
 
@@ -125,7 +130,11 @@ public class AutoDriveCommands {
    * @return A command with the given logic
    */
   public static Command pathFindToCoralStation(
-      Drive drive, boolean leftStation, PathConstraints constraints, boolean withPreciseMove) {
+      Drive drive,
+      Vision vision,
+      boolean leftStation,
+      PathConstraints constraints,
+      boolean withPreciseMove) {
 
     // If no constraints are given, use the DriveConstants max.
     if (constraints == null) {
@@ -147,7 +156,7 @@ public class AutoDriveCommands {
       // Appends the precise move command
       return new SequentialCommandGroup(
               AutoBuilder.pathfindToPose(targetPose, constraints, 0.0),
-              preciseMoveToPose(drive, targetPose))
+              preciseMoveToPose(drive, vision, targetPose))
           .withName("pathFindToCoralStation");
     }
     return AutoBuilder.pathfindToPose(targetPose, constraints, 0.0)
@@ -165,7 +174,7 @@ public class AutoDriveCommands {
    * @param targetPose the target pose
    * @return A command with the given logic
    */
-  public static Command preciseMoveToPose(Drive drive, Pose2d targetPose) {
+  public static Command preciseMoveToPose(Drive drive, Vision vision, Pose2d targetPose) {
 
     double[] deltaValues = new double[2];
 
@@ -210,6 +219,18 @@ public class AutoDriveCommands {
               preciseYMovePIDController.reset();
             })
         .andThen(Commands.runOnce(() -> drive.stopWithX()))
+        .andThen(
+            Commands.runOnce(
+                () -> {
+                  vision.setLightState(true, 0);
+                  vision.setLightState(true, 1);
+                }))
+        .andThen(Commands.waitSeconds(0.1))
+        .finallyDo(
+            () -> {
+              vision.setLightState(false, 0);
+              vision.setLightState(false, 1);
+            })
         .withName("preciseMoveToPose");
   }
 
