@@ -321,7 +321,9 @@ public final class Constants {
   public final class AutoDriveConstants {
 
     // Spilt due to autos never waiting on pose line, so more time to line up.
-    public static final Pose2d maxErrorPoseTeleop = new Pose2d(0.05, 0.05, new Rotation2d());
-    public static final Pose2d maxErrorPoseAuto = new Pose2d(0.01, 0.01, new Rotation2d());
+    public static final Pose2d maxErrorPoseTeleop =
+        new Pose2d(0.05, 0.05, new Rotation2d(Math.toRadians(5.0)));
+    public static final Pose2d maxErrorPoseAuto =
+        new Pose2d(0.01, 0.01, new Rotation2d(Math.toRadians(1.0)));
   }
 }

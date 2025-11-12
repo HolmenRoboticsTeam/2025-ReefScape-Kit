@@ -4,8 +4,12 @@
 
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
@@ -20,8 +24,6 @@ import frc.robot.FieldConstants.CoralPositions;
 import frc.robot.FieldConstants.ReefPositions;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.vision.Vision;
-import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
 
 /** A class containing Auto drive command using PathPlanner's on-the-fly pathfinding */
 public class AutoDriveCommands {
@@ -188,7 +190,10 @@ public class AutoDriveCommands {
     BooleanSupplier isWithinError =
         () ->
             Math.abs(drive.getPose().minus(targetPose).getX()) < maxErrorPose.getX()
-                && Math.abs(drive.getPose().minus(targetPose).getY()) < maxErrorPose.getY();
+                && Math.abs(drive.getPose().minus(targetPose).getY()) < maxErrorPose.getY()
+                && Math.abs(
+                        drive.getPose().getRotation().minus(targetPose.getRotation()).getRadians())
+                    < maxErrorPose.getRotation().getRadians();
 
     // Standard debouncer
     Debouncer debouncer = new Debouncer(0.25, DebounceType.kBoth);
