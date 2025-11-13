@@ -48,6 +48,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
+import frc.robot.util.Elastic;
+import frc.robot.util.Elastic.Notification;
+import frc.robot.util.Elastic.Notification.NotificationLevel;
 import frc.robot.util.LocalADStarAK;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -221,6 +224,13 @@ public class Drive extends SubsystemBase {
 
     // Update gyro alert
     gyroDisconnectedAlert.set(!gyroInputs.connected && Constants.currentMode != Mode.SIM);
+    if (gyroDisconnectedAlert.get()) {
+      Elastic.sendNotification(
+          new Notification(
+              NotificationLevel.WARNING,
+              "Gyro Disconnect!",
+              "The Gyro has disconnected, failing back to swerve kinematics."));
+    }
 
     field.setRobotPose(this.getPose());
   }
