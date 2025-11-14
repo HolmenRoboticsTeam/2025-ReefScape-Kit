@@ -4,17 +4,17 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.subsystems.climber.Climber;
+import java.util.function.DoubleSupplier;
 
 /** Add your docs here. */
 public class ClimberCommands {
 
-  public static Command climberToTarget(Climber climber, DoubleSupplier targetAngle, boolean allowEndCondition) {
+  public static Command climberToTarget(
+      Climber climber, DoubleSupplier targetAngle, boolean allowEndCondition) {
     Command returnCommand =
         Commands.runEnd(
                 () -> {

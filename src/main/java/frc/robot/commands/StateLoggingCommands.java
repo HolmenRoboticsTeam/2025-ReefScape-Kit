@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pivot.Pivot;
@@ -23,7 +24,7 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 public class StateLoggingCommands {
 
   // Part for the current arm
-  private static LoggedMechanism2d mechanismCurrent = new LoggedMechanism2d(5, 5.0);
+  private static LoggedMechanism2d armCurrent = new LoggedMechanism2d(5.0, 5.0);
   private static LoggedMechanismLigament2d elevatorPartCurrent =
       new LoggedMechanismLigament2d("elevator", 0.0, 0);
   private static LoggedMechanismLigament2d gripperPartCurrent =
@@ -32,7 +33,7 @@ public class StateLoggingCommands {
       new LoggedMechanismLigament2d("intake", 0.05, 0);
 
   // Part for the target arm
-  private static LoggedMechanism2d mechanismTarget = new LoggedMechanism2d(5, 5.0);
+  private static LoggedMechanism2d armTarget = new LoggedMechanism2d(5.0, 5.0);
   private static LoggedMechanismLigament2d elevatorPartTarget =
       new LoggedMechanismLigament2d("elevator", 0.0, 0);
   private static LoggedMechanismLigament2d gripperPartTarget =
@@ -40,12 +41,22 @@ public class StateLoggingCommands {
   private static LoggedMechanismLigament2d intakePartTarget =
       new LoggedMechanismLigament2d("intake", 0.05, 0);
 
+  // Part for the current climber
+  private static LoggedMechanism2d climberCurrent = new LoggedMechanism2d(5.0, 5.0);
+  private static LoggedMechanismLigament2d climberPartCurrent =
+      new LoggedMechanismLigament2d("climber", 0.25, 0);
+
+  // Part for the target climber
+  private static LoggedMechanism2d climberTarget = new LoggedMechanism2d(5.0, 5.0);
+  private static LoggedMechanismLigament2d climberPartTarget =
+      new LoggedMechanismLigament2d("climber", 0.25, 0);
+
   /**
    * Sets up the ligaments. Current as green and target as red with target be a little smaller to
    * avoid Z-clipping
    */
   static {
-    mechanismCurrent
+    armCurrent
         .getRoot("root", 2.5 - 0.193, 0.337)
         .append(elevatorPartCurrent)
         .append(gripperPartCurrent)
@@ -59,7 +70,7 @@ public class StateLoggingCommands {
     gripperPartCurrent.setLineWeight(4.0);
     intakePartCurrent.setLineWeight(4.0);
 
-    mechanismTarget
+    armTarget
         .getRoot("root", 2.5 - 0.193, 0.337)
         .append(elevatorPartTarget)
         .append(gripperPartTarget)
@@ -72,19 +83,30 @@ public class StateLoggingCommands {
     elevatorPartTarget.setLineWeight(3.9);
     gripperPartTarget.setLineWeight(3.9);
     intakePartTarget.setLineWeight(3.9);
+
+    climberCurrent.getRoot("root", 2.5 + 0.4, 0.2).append(climberPartCurrent);
+
+    climberPartCurrent.setColor(new Color8Bit(0, 255, 0));
+    climberPartCurrent.setLineWeight(4.0);
+
+    climberTarget.getRoot("root", 2.5 + 0.4, 0.2).append(climberPartTarget);
+
+    climberPartTarget.setColor(new Color8Bit(255, 0, 0));
+    climberPartTarget.setLineWeight(3.9);
   }
 
   /**
-   * Updates the arm mechanism's current position and rotation
+   * Updates the arm and climber mechanism's current position and rotation
    *
    * @param pivot the pivot subsystem
    * @param elevator the elevator subsystem
    * @param wrist the wrist subsystem
    * @param intake the intake subsystem
+   * @param climber the climber subsystem
    * @return the command with the Logic
    */
   public static Command mechanismRunCurrent(
-      Pivot pivot, Elevator elevator, Wrist wrist, Intake intake) {
+      Pivot pivot, Elevator elevator, Wrist wrist, Intake intake, Climber climber) {
 
     return Commands.run(
             () -> {
@@ -96,7 +118,11 @@ public class StateLoggingCommands {
 
               intakePartCurrent.setAngle(Math.toDegrees(intake.getCurrentAngle()));
 
-              Logger.recordOutput("Arm System/Current", mechanismCurrent);
+              Logger.recordOutput("Arm System/Current", armCurrent);
+
+              climberPartCurrent.setAngle(180 - Math.toDegrees(climber.getCurrentAngle()));
+
+              Logger.recordOutput("Climber System/Current", climberCurrent);
             })
         .withName("mechanismRunCurrent")
         .ignoringDisable(true);
@@ -109,10 +135,11 @@ public class StateLoggingCommands {
    * @param elevator the elevator subsystem
    * @param wrist the wrist subsystem
    * @param intake the intake subsystem
+   * @param climber the climber subsystem
    * @return the command with the Logic
    */
   public static Command mechanismRunTarget(
-      Pivot pivot, Elevator elevator, Wrist wrist, Intake intake) {
+      Pivot pivot, Elevator elevator, Wrist wrist, Intake intake, Climber climber) {
 
     return Commands.run(
             () -> {
@@ -124,7 +151,11 @@ public class StateLoggingCommands {
 
               intakePartTarget.setAngle(Math.toDegrees(intake.getCurrentAngle()));
 
-              Logger.recordOutput("Arm System/Target", mechanismTarget);
+              Logger.recordOutput("Arm System/Target", armTarget);
+
+              climberPartTarget.setAngle(180 - Math.toDegrees(climber.getTargetAngle()));
+
+              Logger.recordOutput("Climber System/Target", climberTarget);
             })
         .withName("mechanismRunTarget")
         .ignoringDisable(true);

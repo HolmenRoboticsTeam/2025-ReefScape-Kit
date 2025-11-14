@@ -26,9 +26,10 @@ public class ClimberIOSim implements ClimberIO {
         new DCMotorSim(
             LinearSystemId.createDCMotorSystem(
                 ClimberConstants.motorGearbox, 0.025, ClimberConstants.motorToWheelRatio),
-                ClimberConstants.motorGearbox);
+            ClimberConstants.motorGearbox);
 
-    pidController = new PIDController(ClimberConstants.kSimP, ClimberConstants.kSimI, ClimberConstants.kSimD);
+    pidController =
+        new PIDController(ClimberConstants.kSimP, ClimberConstants.kSimI, ClimberConstants.kSimD);
   }
 
   public void updateInputs(ClimberIOInputs inputs) {

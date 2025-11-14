@@ -7,7 +7,6 @@ package frc.robot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ElevatorConstants;
@@ -172,9 +171,9 @@ public final class MotorConfigs {
       climberConfig.inverted(false);
 
       climberConfig
-        .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(ClimberConstants.kMaxCurrentLimit)
-        .voltageCompensation(ClimberConstants.kMaxVoltage);
+          .idleMode(IdleMode.kBrake)
+          .smartCurrentLimit(ClimberConstants.kMaxCurrentLimit)
+          .voltageCompensation(ClimberConstants.kMaxVoltage);
     }
   }
 }

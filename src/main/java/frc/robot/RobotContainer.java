@@ -13,12 +13,9 @@
 
 package frc.robot;
 
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -78,6 +75,7 @@ import frc.robot.subsystems.wrist.WristIO;
 import frc.robot.subsystems.wrist.WristIOReal;
 import frc.robot.subsystems.wrist.WristIOSim;
 import frc.robot.util.Elastic;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -251,8 +249,8 @@ public class RobotContainer {
 
     // Starts the arm mechanism for sim and comp matches
     DynamicAutoCommands.setupDynamicAuto(drive, vision, pivot, elevator, wrist, intake);
-    StateLoggingCommands.mechanismRunCurrent(pivot, elevator, wrist, intake)
-        .alongWith(StateLoggingCommands.mechanismRunTarget(pivot, elevator, wrist, intake))
+    StateLoggingCommands.mechanismRunCurrent(pivot, elevator, wrist, intake, climber)
+        .alongWith(StateLoggingCommands.mechanismRunTarget(pivot, elevator, wrist, intake, climber))
         .withName("mechanismCommands")
         .schedule(); // Combined to avoid an extra command being logged
 
@@ -298,19 +296,19 @@ public class RobotContainer {
 
     // These are on the button box, so consider changing (or keeping them for
     // testing).
-    controller
-        .a()
-        .whileTrue(
-            ArmControlCommands.armUpCommand(
-                    pivot, elevator, wrist, ArmPosition.PAST_STAGE2, ArmSystem.ALL)
-                .andThen(
-                    ArmControlCommands.armUpCommand(
-                        pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL))
-                .andThen(
-                    ArmControlCommands.armHoldAtCommand(
-                            pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL)
-                        .alongWith(ControllerCommands.setRumble(controller, 0.2, 0.2)))
-                .withName("level2UpAndHoldWithRumble"));
+    // controller
+    //     .a()
+    //     .whileTrue(
+    //         ArmControlCommands.armUpCommand(
+    //                 pivot, elevator, wrist, ArmPosition.PAST_STAGE2, ArmSystem.ALL)
+    //             .andThen(
+    //                 ArmControlCommands.armUpCommand(
+    //                     pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL))
+    //             .andThen(
+    //                 ArmControlCommands.armHoldAtCommand(
+    //                         pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL)
+    //                     .alongWith(ControllerCommands.setRumble(controller, 0.2, 0.2)))
+    //             .withName("level2UpAndHoldWithRumble"));
     controller
         .b()
         .whileTrue(
@@ -335,9 +333,9 @@ public class RobotContainer {
                         .alongWith(ControllerCommands.setRumble(controller, 0.2, 0.2)))
                 .withName("level4UpAndHoldWithRumble"));
 
-    controller
-        .a()
-        .onFalse(ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.LEVEL2));
+    // controller
+    //     .a()
+    //     .onFalse(ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.LEVEL2));
     controller
         .b()
         .onFalse(ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.LEVEL3));
@@ -427,16 +425,17 @@ public class RobotContainer {
     coralStationGrab.onFalse(
         ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.CORAL_STATION));
 
-    cageStow.whileTrue(
-        ArmControlCommands.armUpCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
-            .repeatedly()
-            .alongWith(ClimberCommands.climberToTarget(climber, () -> ClimberConstants.kActiveAngle, false)));
+    cageStow.onTrue(
+        ArmControlCommands.armHoldAtCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
+            .alongWith(
+                ClimberCommands.climberToTarget(
+                    climber, () -> ClimberConstants.kActiveAngle, false)));
 
     cageStow.onFalse(
-        ArmControlCommands.armUpCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
-            .repeatedly()
-            .alongWith(ClimberCommands.climberToTarget(climber, () -> ClimberConstants.kHomeAngle, false))
-    );
+        ArmControlCommands.armHoldAtCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
+            .alongWith(
+                ClimberCommands.climberToTarget(
+                    climber, () -> ClimberConstants.kHomeAngle, false)));
 
     lowerAlgaeRemove.whileTrue(
         ArmControlCommands.armUpCommand(

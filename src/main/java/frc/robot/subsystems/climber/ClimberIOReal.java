@@ -9,7 +9,6 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ClimberConstants;
@@ -33,7 +32,9 @@ public class ClimberIOReal implements ClimberIO {
     climberMotor.configure(
         WristConfig.wristConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    pidController = new PIDController(ClimberConstants.kRealP, ClimberConstants.kRealI, ClimberConstants.kRealD);
+    pidController =
+        new PIDController(
+            ClimberConstants.kRealP, ClimberConstants.kRealI, ClimberConstants.kRealD);
   }
 
   public void updateInputs(ClimberIOInputs inputs) {
