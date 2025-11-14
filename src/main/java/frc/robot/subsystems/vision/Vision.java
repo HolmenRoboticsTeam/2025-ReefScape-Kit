@@ -25,9 +25,6 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
-import frc.robot.util.Elastic;
-import frc.robot.util.Elastic.Notification;
-import frc.robot.util.Elastic.Notification.NotificationLevel;
 import java.util.ArrayList;
 import java.util.List;
 import org.littletonrobotics.junction.Logger;
@@ -100,13 +97,13 @@ public class Vision extends SubsystemBase {
     for (int cameraIndex = 0; cameraIndex < io.length; cameraIndex++) {
       // Update disconnected alert
       disconnectedAlerts[cameraIndex].set(!inputs[cameraIndex].connected);
-      if (disconnectedAlerts[cameraIndex].get()) {
-        Elastic.sendNotification(
-            new Notification(
-                NotificationLevel.WARNING,
-                "Camera Disconnect!",
-                "Camera index " + cameraIndex + " has disconnected."));
-      }
+      // if (disconnectedAlerts[cameraIndex].get()) {
+      //   Elastic.sendNotification(
+      //       new Notification(
+      //           NotificationLevel.WARNING,
+      //           "Camera Disconnect!",
+      //           "Camera index " + cameraIndex + " has disconnected."));
+      // }
 
       // Clear logging values
       tagPoses.clear();
