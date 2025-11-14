@@ -13,9 +13,12 @@
 
 package frc.robot;
 
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -26,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.FieldConstants.CagePosition;
@@ -34,6 +38,7 @@ import frc.robot.commands.ArmControlCommands.ArmPosition;
 import frc.robot.commands.ArmControlCommands.ArmSystem;
 import frc.robot.commands.AutoDriveCommands;
 import frc.robot.commands.AutoDriveCommands.ReefSide;
+import frc.robot.commands.ClimberCommands;
 import frc.robot.commands.ControllerCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.DynamicAutoCommands;
@@ -73,7 +78,6 @@ import frc.robot.subsystems.wrist.WristIO;
 import frc.robot.subsystems.wrist.WristIOReal;
 import frc.robot.subsystems.wrist.WristIOSim;
 import frc.robot.util.Elastic;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -85,6 +89,7 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive;
   private final Vision vision;
+
   private final Pivot pivot;
   private final Elevator elevator;
   private final Wrist wrist;
@@ -422,12 +427,16 @@ public class RobotContainer {
     coralStationGrab.onFalse(
         ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.CORAL_STATION));
 
-    cageStow.toggleOnTrue(
+    cageStow.whileTrue(
         ArmControlCommands.armUpCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
-            .repeatedly());
+            .repeatedly()
+            .alongWith(ClimberCommands.climberToTarget(climber, () -> ClimberConstants.kActiveAngle, false)));
 
-    cageStow.toggleOnFalse(
-        ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.CAGE));
+    cageStow.onFalse(
+        ArmControlCommands.armUpCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
+            .repeatedly()
+            .alongWith(ClimberCommands.climberToTarget(climber, () -> ClimberConstants.kHomeAngle, false))
+    );
 
     lowerAlgaeRemove.whileTrue(
         ArmControlCommands.armUpCommand(

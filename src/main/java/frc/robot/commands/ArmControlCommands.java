@@ -4,6 +4,10 @@
 
 package frc.robot.commands;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -15,9 +19,6 @@ import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.wrist.Wrist;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /** A class containing arm control command for moving up, down, and holding at a position. */
 public class ArmControlCommands {
@@ -321,7 +322,7 @@ public class ArmControlCommands {
             new double[] {
               PivotConstants.kHomeAngle,
               ElevatorConstants.kHomeLength,
-              WristConstants.kCoralStationAngle
+              WristConstants.kHomeAngle
             };
         break;
       case CAGE:
@@ -329,13 +330,13 @@ public class ArmControlCommands {
             new double[] {
               PivotConstants.kCageStowAngle,
               ElevatorConstants.kHomeLength,
-              WristConstants.kCoralStationAngle
+              WristConstants.kHomeAngle
             };
         break;
       case STAND_BY:
         returnArray =
             new double[] {
-              PivotConstants.kLevel3Angle,
+              PivotConstants.kLevel2Angle,
               ElevatorConstants.kHomeLength,
               WristConstants.kLevel1Angle
             };

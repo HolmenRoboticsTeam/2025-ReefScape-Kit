@@ -312,10 +312,6 @@ public final class Constants {
 
     public static final int kMaxCurrentLimit = 40;
     public static final double kMaxVoltage = 12;
-
-    public static final double kHomeAngle = Math.toRadians(0.0);
-
-    public static final double kActiveAngle = Math.toRadians(90.0);
   }
 
   public final class ClimberConstants {
@@ -335,6 +331,12 @@ public final class Constants {
     public static final double kSimP = 3.0;
     public static final double kSimI = 0.0;
     public static final double kSimD = 0.0;
+
+    public static final double kHomeAngle = Math.toRadians(0.0);
+
+    public static final double kActiveAngle = Math.toRadians(90.0);
+
+    public static final double kAngleErrorAllowed = Math.toRadians(1.0);
   }
 
   public final class OIConstants {
