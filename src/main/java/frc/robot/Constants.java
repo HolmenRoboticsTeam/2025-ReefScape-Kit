@@ -15,6 +15,7 @@ package frc.robot;
 
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -311,6 +312,29 @@ public final class Constants {
 
     public static final int kMaxCurrentLimit = 40;
     public static final double kMaxVoltage = 12;
+
+    public static final double kHomeAngle = Math.toRadians(0.0);
+
+    public static final double kActiveAngle = Math.toRadians(90.0);
+  }
+
+  public final class ClimberConstants {
+
+    public static final int kMotorID = 16;
+
+    public static final DCMotor motorGearbox = DCMotor.getNEO(1);
+
+    public static final double motorToWheelRatio = 100.0;
+
+    public static final int kMaxCurrentLimit = 40;
+    public static final double kMaxVoltage = 12.0;
+
+    public static final double kRealP = 3.0;
+    public static final double kRealI = 0.0;
+    public static final double kRealD = 0.0;
+    public static final double kSimP = 3.0;
+    public static final double kSimI = 0.0;
+    public static final double kSimD = 0.0;
   }
 
   public final class OIConstants {

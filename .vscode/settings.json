@@ -79,5 +79,6 @@
   ],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
-  }
+  },
+  "editor.tabSize": 2
 }

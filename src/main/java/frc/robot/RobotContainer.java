@@ -42,6 +42,10 @@ import frc.robot.commands.IntakeCommands;
 import frc.robot.commands.PivotCommands;
 import frc.robot.commands.StateLoggingCommands;
 import frc.robot.commands.WristCommands;
+import frc.robot.subsystems.climber.Climber;
+import frc.robot.subsystems.climber.ClimberIO;
+import frc.robot.subsystems.climber.ClimberIOReal;
+import frc.robot.subsystems.climber.ClimberIOSim;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIONavX;
@@ -86,6 +90,8 @@ public class RobotContainer {
   private final Wrist wrist;
   private final Intake intake;
 
+  private final Climber climber;
+
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
   private final XboxController buttonBox = new XboxController(1);
@@ -128,6 +134,8 @@ public class RobotContainer {
         wrist = new Wrist(new WristIOReal());
         intake = new Intake(new IntakeIOReal());
 
+        climber = new Climber(new ClimberIOReal());
+
         break;
 
       case SIM:
@@ -152,6 +160,8 @@ public class RobotContainer {
         wrist = new Wrist(new WristIOSim());
         intake = new Intake(new IntakeIOSim());
 
+        climber = new Climber(new ClimberIOSim());
+
         break;
 
       default:
@@ -169,6 +179,8 @@ public class RobotContainer {
         elevator = new Elevator(new ElevatorIO() {});
         wrist = new Wrist(new WristIO() {});
         intake = new Intake(new IntakeIO() {});
+
+        climber = new Climber(new ClimberIO() {});
 
         break;
     }
