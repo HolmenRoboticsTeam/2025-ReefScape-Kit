@@ -15,6 +15,7 @@ package frc.robot;
 
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -321,7 +322,7 @@ public final class Constants {
 
     public static final double motorToWheelRatio = 100.0;
 
-    public static final int kMaxCurrentLimit = 40;
+    public static final int kMaxCurrentLimit = 80;
     public static final double kMaxVoltage = 12.0;
 
     public static final double kRealP = 3.0;
