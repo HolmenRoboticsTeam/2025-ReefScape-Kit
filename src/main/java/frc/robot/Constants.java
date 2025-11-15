@@ -15,6 +15,7 @@ package frc.robot;
 
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -148,15 +149,15 @@ public final class Constants {
         AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
     // Camera names, must match names configured on coprocessor
-    public static String camera0Name = "camera_0";
-    public static String camera1Name = "camera_1";
+    public static String leftLLName = "leftLL2+";
+    public static String rightLLName = "rightLL3";
 
     // Robot to camera transforms
     // (Not used by Limelight, configure in web UI instead)
-    public static Transform3d robotToCamera0 =
-        new Transform3d(-0.5, 0.20, 0.0, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
-    public static Transform3d robotToCamera1 =
-        new Transform3d(-0.5, -0.20, 0.0, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
+    public static Transform3d robotToLeftLL =
+        new Transform3d(-0.1397, 0.279, 0.254, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
+    public static Transform3d robotToRightLL =
+        new Transform3d(-0.1397, -0.279, 0.2413, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
 
     // Basic filtering thresholds
     public static double maxAmbiguity = 0.3;
