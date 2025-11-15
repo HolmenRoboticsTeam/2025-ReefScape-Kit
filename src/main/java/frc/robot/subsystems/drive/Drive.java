@@ -226,7 +226,9 @@ public class Drive extends SubsystemBase {
     }
 
     // Display warning if gyro was connected last time and is now disconnected
-    if (!gyroDisconnectedAlert.get() && !gyroInputs.connected && Constants.currentMode != Mode.SIM) {
+    if (!gyroDisconnectedAlert.get()
+        && !gyroInputs.connected
+        && Constants.currentMode != Mode.SIM) {
       Elastic.sendNotification(
           new Notification(
               NotificationLevel.WARNING,
