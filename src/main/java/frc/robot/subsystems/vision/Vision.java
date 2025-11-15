@@ -13,6 +13,11 @@
 
 package frc.robot.subsystems.vision;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -25,9 +30,9 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
-import java.util.ArrayList;
-import java.util.List;
-import org.littletonrobotics.junction.Logger;
+import frc.robot.util.Elastic;
+import frc.robot.util.Elastic.Notification;
+import frc.robot.util.Elastic.Notification.NotificationLevel;
 
 public class Vision extends SubsystemBase {
   private final VisionConsumer consumer;
@@ -95,15 +100,18 @@ public class Vision extends SubsystemBase {
 
     // Loop over cameras
     for (int cameraIndex = 0; cameraIndex < io.length; cameraIndex++) {
+
+      // Display warning if camera was connected last time and is now disconnected
+      if (!disconnectedAlerts[cameraIndex].get() && !inputs[cameraIndex].connected) {
+        Elastic.sendNotification(
+            new Notification(
+                NotificationLevel.WARNING,
+                "Camera Disconnect!",
+                "Camera index " + cameraIndex + " has disconnected."));
+      }
+
       // Update disconnected alert
       disconnectedAlerts[cameraIndex].set(!inputs[cameraIndex].connected);
-      // if (disconnectedAlerts[cameraIndex].get()) {
-      //   Elastic.sendNotification(
-      //       new Notification(
-      //           NotificationLevel.WARNING,
-      //           "Camera Disconnect!",
-      //           "Camera index " + cameraIndex + " has disconnected."));
-      // }
 
       // Clear logging values
       tagPoses.clear();
