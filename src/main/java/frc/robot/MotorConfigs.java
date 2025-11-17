@@ -7,6 +7,7 @@ package frc.robot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ElevatorConstants;
@@ -169,6 +170,11 @@ public final class MotorConfigs {
 
     static {
       climberConfig.inverted(false);
+
+      // Changes all inputs and outputs from motor rotations to pivot angle in radians
+      double positionConversionFactorRelative = (2 * Math.PI) / ClimberConstants.motorToWheelRatio;
+
+      climberConfig.encoder.positionConversionFactor(positionConversionFactorRelative);
 
       climberConfig
           .idleMode(IdleMode.kBrake)
