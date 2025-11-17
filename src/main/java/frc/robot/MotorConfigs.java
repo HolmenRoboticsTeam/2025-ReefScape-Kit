@@ -7,7 +7,6 @@ package frc.robot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ElevatorConstants;
@@ -98,12 +97,12 @@ public final class MotorConfigs {
 
       leftPivotConfig
           .idleMode(IdleMode.kBrake)
-          .smartCurrentLimit(PivotConstants.kMaxCurrentLimit)
-          .voltageCompensation(PivotConstants.kMaxVoltage);
+          .smartCurrentLimit(PivotConstants.maxCurrentLimit)
+          .voltageCompensation(PivotConstants.maxVoltage);
       rightPivotConfig
           .idleMode(IdleMode.kBrake)
-          .smartCurrentLimit(PivotConstants.kMaxCurrentLimit)
-          .voltageCompensation(PivotConstants.kMaxVoltage);
+          .smartCurrentLimit(PivotConstants.maxCurrentLimit)
+          .voltageCompensation(PivotConstants.maxVoltage);
     }
   }
 
@@ -125,12 +124,12 @@ public final class MotorConfigs {
 
       leftElevatorConfig
           .idleMode(IdleMode.kBrake)
-          .smartCurrentLimit(ElevatorConstants.kMaxCurrentLimit)
-          .voltageCompensation(ElevatorConstants.kMaxVoltage);
+          .smartCurrentLimit(ElevatorConstants.maxCurrentLimit)
+          .voltageCompensation(ElevatorConstants.maxVoltage);
       rightElevatorConfig
           .idleMode(IdleMode.kBrake)
-          .smartCurrentLimit(ElevatorConstants.kMaxCurrentLimit)
-          .voltageCompensation(ElevatorConstants.kMaxVoltage);
+          .smartCurrentLimit(ElevatorConstants.maxCurrentLimit)
+          .voltageCompensation(ElevatorConstants.maxVoltage);
     }
   }
 
@@ -147,8 +146,8 @@ public final class MotorConfigs {
 
       wristConfig
           .idleMode(IdleMode.kBrake)
-          .smartCurrentLimit(WristConstants.kMaxCurrentLimit)
-          .voltageCompensation(WristConstants.kMaxVoltage);
+          .smartCurrentLimit(WristConstants.maxCurrentLimit)
+          .voltageCompensation(WristConstants.maxVoltage);
     }
   }
 
@@ -160,8 +159,8 @@ public final class MotorConfigs {
 
       intakeConfig
           .idleMode(IdleMode.kBrake)
-          .smartCurrentLimit(IntakeConstants.kMaxCurrentLimit)
-          .voltageCompensation(IntakeConstants.kMaxVoltage);
+          .smartCurrentLimit(IntakeConstants.maxCurrentLimit)
+          .voltageCompensation(IntakeConstants.maxVoltage);
     }
   }
 
@@ -178,8 +177,8 @@ public final class MotorConfigs {
 
       climberConfig
           .idleMode(IdleMode.kBrake)
-          .smartCurrentLimit(ClimberConstants.kMaxCurrentLimit)
-          .voltageCompensation(ClimberConstants.kMaxVoltage);
+          .smartCurrentLimit(ClimberConstants.maxCurrentLimit)
+          .voltageCompensation(ClimberConstants.maxVoltage);
     }
   }
 }

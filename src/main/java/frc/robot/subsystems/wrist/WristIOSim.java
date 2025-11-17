@@ -29,7 +29,7 @@ public class WristIOSim implements WristIO {
             WristConstants.motorGearbox);
 
     this.m_wristPIDController =
-        new PIDController(WristConstants.kSimP, WristConstants.kSimI, WristConstants.kSimD);
+        new PIDController(WristConstants.simP, WristConstants.simI, WristConstants.simD);
   }
 
   @Override

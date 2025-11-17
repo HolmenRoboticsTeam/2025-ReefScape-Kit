@@ -37,7 +37,7 @@ public class PivotCommands {
                 allowEndCondition
                     ? () ->
                         Math.abs(pivot.getCurrentAngle() - targetAngle.getAsDouble())
-                            < PivotConstants.kAngleErrorAllowed
+                            < PivotConstants.angleErrorAllowed
                     : () -> false)
             .withName("pivotToTarget");
 
@@ -63,7 +63,7 @@ public class PivotCommands {
    * @return Command with the given logic
    */
   public static Command pivotToHome(Pivot pivot, boolean allowEndCondition) {
-    return pivotToTarget(pivot, PivotConstants.kHomeAngle, allowEndCondition)
+    return pivotToTarget(pivot, PivotConstants.homeAngle, allowEndCondition)
         .withName("pivotToHome");
   }
 

@@ -28,14 +28,14 @@ public class PivotIOSim implements PivotIO {
             DCMotor.getNeo550(2),
             PivotConstants.motorToPivotAngleRatio,
             0.970,
-            ElevatorConstants.kHomeLength,
+            ElevatorConstants.homeLength,
             Math.toRadians(30.0),
             Math.toRadians(225.0),
             true,
             Math.toRadians(30.0));
 
     this.m_pivotPIDController =
-        new PIDController(PivotConstants.kSimP, PivotConstants.kSimI, PivotConstants.kSimD);
+        new PIDController(PivotConstants.simP, PivotConstants.simI, PivotConstants.simD);
   }
 
   @Override

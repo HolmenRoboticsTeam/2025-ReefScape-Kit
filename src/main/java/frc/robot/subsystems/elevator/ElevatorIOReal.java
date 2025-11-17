@@ -30,8 +30,8 @@ public class ElevatorIOReal implements ElevatorIO {
 
   public ElevatorIOReal() {
 
-    this.m_leftMotor = new SparkMax(ElevatorConstants.kLeftMotorID, MotorType.kBrushless);
-    this.m_rightMotor = new SparkMax(ElevatorConstants.kRightMotorID, MotorType.kBrushless);
+    this.m_leftMotor = new SparkMax(ElevatorConstants.leftMotorID, MotorType.kBrushless);
+    this.m_rightMotor = new SparkMax(ElevatorConstants.rightMotorID, MotorType.kBrushless);
 
     tryUntilOk(
         m_leftMotor,
@@ -52,11 +52,11 @@ public class ElevatorIOReal implements ElevatorIO {
 
     this.m_rightEncoder = this.m_rightMotor.getEncoder();
     tryUntilOk(
-        m_rightMotor, 5, () -> this.m_rightEncoder.setPosition(ElevatorConstants.kHomeLength));
+        m_rightMotor, 5, () -> this.m_rightEncoder.setPosition(ElevatorConstants.homeLength));
 
     this.m_elevatorPIDController =
         new PIDController(
-            ElevatorConstants.kRealP, ElevatorConstants.kRealI, ElevatorConstants.kRealD);
+            ElevatorConstants.realP, ElevatorConstants.realI, ElevatorConstants.realD);
   }
 
   @Override
@@ -76,7 +76,7 @@ public class ElevatorIOReal implements ElevatorIO {
         this.m_elevatorPIDController.calculate(this.m_rightEncoder.getPosition(), length);
     double volts = 12.0 * MathUtil.clamp(speed, -1.0, 1.0);
 
-    volts += ElevatorConstants.kRealG;
+    volts += ElevatorConstants.realG;
 
     this.m_leftMotor.setVoltage(volts);
     this.m_rightMotor.setVoltage(volts);

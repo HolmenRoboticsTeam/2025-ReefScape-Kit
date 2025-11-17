@@ -22,7 +22,7 @@ public class IntakeIOReal implements IntakeIO {
 
   public IntakeIOReal() {
 
-    this.m_intakeMotor = new SparkMax(IntakeConstants.kMotorID, MotorType.kBrushless);
+    this.m_intakeMotor = new SparkMax(IntakeConstants.motorID, MotorType.kBrushless);
     this.m_encoder = m_intakeMotor.getEncoder();
 
     tryUntilOk(

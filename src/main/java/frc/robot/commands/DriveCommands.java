@@ -89,7 +89,7 @@ public class DriveCommands {
   private static Rotation2d getAngularSpeedFromJoysticks(double x, double y, double rawGyroAngle) {
 
     // Checks if any rotation input is being given
-    if (Math.abs(x) < OIConstants.kDriveDeadband && Math.abs(y) < OIConstants.kDriveDeadband) {
+    if (Math.abs(x) < OIConstants.driveDeadband && Math.abs(y) < OIConstants.driveDeadband) {
       return new Rotation2d(0.0);
     }
 

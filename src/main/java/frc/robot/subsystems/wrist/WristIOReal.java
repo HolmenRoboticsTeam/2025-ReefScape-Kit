@@ -26,14 +26,14 @@ public class WristIOReal implements WristIO {
 
   public WristIOReal() {
 
-    this.m_wristMotor = new SparkMax(WristConstants.kMotorID, MotorType.kBrushless);
+    this.m_wristMotor = new SparkMax(WristConstants.motorID, MotorType.kBrushless);
     this.m_encoder = m_wristMotor.getEncoder();
 
     this.m_wristMotor.configure(
         WristConfig.wristConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     this.m_wristPIDController =
-        new PIDController(WristConstants.kRealP, WristConstants.kRealI, WristConstants.kRealD);
+        new PIDController(WristConstants.realP, WristConstants.realI, WristConstants.realD);
   }
 
   @Override
@@ -51,7 +51,7 @@ public class WristIOReal implements WristIO {
     this.targetAngle = angle;
     double speed = this.m_wristPIDController.calculate(this.m_encoder.getPosition(), angle);
     double volts = 12.0 * MathUtil.clamp(speed, -1.0, 1.0);
-    volts += WristConstants.kRealG;
+    volts += WristConstants.realG;
 
     this.m_wristMotor.setVoltage(volts);
   }

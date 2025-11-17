@@ -34,8 +34,7 @@ public class ElevatorIOSim implements ElevatorIO {
             0.659);
 
     this.m_elevatorPIDController =
-        new PIDController(
-            ElevatorConstants.kSimP, ElevatorConstants.kSimI, ElevatorConstants.kSimD);
+        new PIDController(ElevatorConstants.simP, ElevatorConstants.simI, ElevatorConstants.simD);
   }
 
   @Override
@@ -58,7 +57,7 @@ public class ElevatorIOSim implements ElevatorIO {
     double speed =
         this.m_elevatorPIDController.calculate(this.elevatorSim.getPositionMeters() - length);
     this.appliedVolts = 12.0 * MathUtil.clamp(speed, -1.0, 1.0);
-    this.appliedVolts += ElevatorConstants.kSimG;
+    this.appliedVolts += ElevatorConstants.simG;
   }
 
   @Override

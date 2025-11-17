@@ -226,12 +226,11 @@ public class RobotContainer {
         DriveCommands.driveAtAngle(
             drive,
             () ->
-                MathUtil.applyDeadband(
-                    controller.getRightTriggerAxis(), OIConstants.kDriveDeadband),
-            () -> MathUtil.applyDeadband(-controller.getLeftY(), OIConstants.kDriveDeadband),
-            () -> MathUtil.applyDeadband(-controller.getLeftX(), OIConstants.kDriveDeadband),
-            () -> MathUtil.applyDeadband(-controller.getRightY(), OIConstants.kDriveDeadband),
-            () -> MathUtil.applyDeadband(-controller.getRightX(), OIConstants.kDriveDeadband)));
+                MathUtil.applyDeadband(controller.getRightTriggerAxis(), OIConstants.driveDeadband),
+            () -> MathUtil.applyDeadband(-controller.getLeftY(), OIConstants.driveDeadband),
+            () -> MathUtil.applyDeadband(-controller.getLeftX(), OIConstants.driveDeadband),
+            () -> MathUtil.applyDeadband(-controller.getRightY(), OIConstants.driveDeadband),
+            () -> MathUtil.applyDeadband(-controller.getRightX(), OIConstants.driveDeadband)));
 
     // Default command for each subsystem
     intake.setDefaultCommand(IntakeCommands.intakeRun(intake, () -> -0.25));
@@ -429,13 +428,12 @@ public class RobotContainer {
         ArmControlCommands.armHoldAtCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
             .alongWith(
                 ClimberCommands.climberToTarget(
-                    climber, () -> ClimberConstants.kActiveAngle, false)));
+                    climber, () -> ClimberConstants.activeAngle, false)));
 
     cageStow.onFalse(
         ArmControlCommands.armHoldAtCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
             .alongWith(
-                ClimberCommands.climberToTarget(
-                    climber, () -> ClimberConstants.kHomeAngle, false)));
+                ClimberCommands.climberToTarget(climber, () -> ClimberConstants.homeAngle, false)));
 
     lowerAlgaeRemove.whileTrue(
         ArmControlCommands.armUpCommand(

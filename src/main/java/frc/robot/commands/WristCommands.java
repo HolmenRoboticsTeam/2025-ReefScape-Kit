@@ -37,7 +37,7 @@ public class WristCommands {
                 allowEndCondition
                     ? () ->
                         Math.abs(wrist.getCurrentAngle() - targetAngle.getAsDouble())
-                            < WristConstants.kAngleErrorAllowed
+                            < WristConstants.angleErrorAllowed
                     : () -> false)
             .withName("wristToTarget");
 
@@ -63,7 +63,7 @@ public class WristCommands {
    * @return the command with the given logic
    */
   public static Command wristToHome(Wrist wrist, boolean allowEndCondition) {
-    return wristToTarget(wrist, WristConstants.kHomeAngle, allowEndCondition)
+    return wristToTarget(wrist, WristConstants.homeAngle, allowEndCondition)
         .withName("wristToHome");
   }
 

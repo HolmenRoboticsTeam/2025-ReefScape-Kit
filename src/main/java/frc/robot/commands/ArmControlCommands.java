@@ -265,77 +265,67 @@ public class ArmControlCommands {
       case LEVEL2:
         returnArray =
             new double[] {
-              PivotConstants.kLevel2Angle,
-              ElevatorConstants.kLevel2Length,
-              WristConstants.kLevel2Angle
+              PivotConstants.level2Angle, ElevatorConstants.level2Length, WristConstants.level2Angle
             };
         break;
       case LEVEL3:
         returnArray =
             new double[] {
-              PivotConstants.kLevel3Angle,
-              ElevatorConstants.kLevel3Length,
-              WristConstants.kLevel3Angle
+              PivotConstants.level3Angle, ElevatorConstants.level3Length, WristConstants.level3Angle
             };
         break;
       case LEVEL4:
         returnArray =
             new double[] {
-              PivotConstants.kLevel4Angle,
-              ElevatorConstants.kLevel4Length,
-              WristConstants.kLevel4Angle
+              PivotConstants.level4Angle, ElevatorConstants.level4Length, WristConstants.level4Angle
             };
         break;
       case PAST_STAGE2:
         returnArray =
             new double[] {
-              PivotConstants.kLevel3Angle, ElevatorConstants.kPastStage2, WristConstants.kPastStage2
+              PivotConstants.level3Angle, ElevatorConstants.pastStage2, WristConstants.pastStage2
             };
         break;
       case CORAL_STATION:
         returnArray =
             new double[] {
-              PivotConstants.kCoralStationAngle,
-              ElevatorConstants.kCoralStationLength,
-              WristConstants.kCoralStationAngle
+              PivotConstants.coralStationAngle,
+              ElevatorConstants.coralStationLength,
+              WristConstants.coralStationAngle
             };
         break;
       case LOWER_ALGAE_REMOVE:
         returnArray =
             new double[] {
-              PivotConstants.kLowerAlgaeRemove,
-              ElevatorConstants.kLevel2Length,
-              WristConstants.kLowerAlgaeRemove
+              PivotConstants.lowerAlgaeRemove,
+              ElevatorConstants.level2Length,
+              WristConstants.lowerAlgaeRemove
             };
         break;
       case HIGHER_ALGAE_REMOVE:
         returnArray =
             new double[] {
-              PivotConstants.kHigherAlgaeRemove,
-              ElevatorConstants.kLevel3Length,
-              WristConstants.kHigherAlgaeRemove
+              PivotConstants.higherAlgaeRemove,
+              ElevatorConstants.level3Length,
+              WristConstants.higherAlgaeRemove
             };
         break;
       case HOME:
         returnArray =
             new double[] {
-              PivotConstants.kHomeAngle, ElevatorConstants.kHomeLength, WristConstants.kHomeAngle
+              PivotConstants.homeAngle, ElevatorConstants.homeLength, WristConstants.homeAngle
             };
         break;
       case CAGE:
         returnArray =
             new double[] {
-              PivotConstants.kCageStowAngle,
-              ElevatorConstants.kHomeLength,
-              WristConstants.kHomeAngle
+              PivotConstants.cageStowAngle, ElevatorConstants.homeLength, WristConstants.homeAngle
             };
         break;
       case STAND_BY:
         returnArray =
             new double[] {
-              PivotConstants.kLevel2Angle,
-              ElevatorConstants.kHomeLength,
-              WristConstants.kLevel1Angle
+              PivotConstants.level2Angle, ElevatorConstants.homeLength, WristConstants.level1Angle
             };
         break;
     }

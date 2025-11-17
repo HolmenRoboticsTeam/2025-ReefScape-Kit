@@ -96,8 +96,8 @@ public class AutoScoreCommands {
                   ArmControlCommands.armDownCommand(pivot, elevator, wrist, targetLevel))
               .until(
                   () ->
-                      Math.abs(elevator.getCurrentLength() - ElevatorConstants.kHomeLength)
-                          < ElevatorConstants.kLengthErrorAllowed));
+                      Math.abs(elevator.getCurrentLength() - ElevatorConstants.homeLength)
+                          < ElevatorConstants.lengthErrorAllowed));
     }
 
     return primaryCommand.withName("autoDriveAndScore");

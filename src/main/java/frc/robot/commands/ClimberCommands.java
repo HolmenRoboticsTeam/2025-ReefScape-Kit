@@ -28,7 +28,7 @@ public class ClimberCommands {
                 allowEndCondition
                     ? () ->
                         Math.abs(climber.getCurrentAngle() - targetAngle.getAsDouble())
-                            < ClimberConstants.kAngleErrorAllowed
+                            < ClimberConstants.angleErrorAllowed
                     : () -> false)
             .withName("wristToTarget");
 

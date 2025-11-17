@@ -26,15 +26,14 @@ public class ClimberIOReal implements ClimberIO {
   private double appliedVolts = 0.0;
 
   public ClimberIOReal() {
-    climberMotor = new SparkMax(ClimberConstants.kMotorID, MotorType.kBrushless);
+    climberMotor = new SparkMax(ClimberConstants.motorID, MotorType.kBrushless);
     encoder = climberMotor.getEncoder();
 
     climberMotor.configure(
         WristConfig.wristConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     pidController =
-        new PIDController(
-            ClimberConstants.kRealP, ClimberConstants.kRealI, ClimberConstants.kRealD);
+        new PIDController(ClimberConstants.realP, ClimberConstants.realI, ClimberConstants.realD);
   }
 
   public void updateInputs(ClimberIOInputs inputs) {

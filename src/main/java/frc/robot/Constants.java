@@ -144,203 +144,203 @@ public final class Constants {
 
   public class VisionConstants {
     // AprilTag layout
-    public static AprilTagFieldLayout aprilTagLayout =
+    public static final AprilTagFieldLayout aprilTagLayout =
         AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
     // Camera names, must match names configured on coprocessor
-    public static String leftLLName = "leftLL2+";
-    public static String rightLLName = "rightLL3";
+    public static final String leftLLName = "leftLL2+";
+    public static final String rightLLName = "rightLL3";
 
     // Robot to camera transforms
     // (Not used by Limelight, configure in web UI instead)
-    public static Transform3d robotToLeftLL =
+    public static final Transform3d robotToLeftLL =
         new Transform3d(-0.1397, 0.279, 0.254, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
-    public static Transform3d robotToRightLL =
+    public static final Transform3d robotToRightLL =
         new Transform3d(-0.1397, -0.279, 0.2413, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
 
     // Basic filtering thresholds
-    public static double maxAmbiguity = 0.3;
-    public static double maxZError = 0.75;
+    public static final double maxAmbiguity = 0.3;
+    public static final double maxZError = 0.75;
 
     // Standard deviation baselines, for 1 meter distance and 1 tag
     // (Adjusted automatically based on distance and # of tags)
-    public static double linearStdDevBaseline = 0.02; // Meters
-    public static double angularStdDevBaseline = 0.06; // Radians
+    public static final double linearStdDevBaseline = 0.02; // Meters
+    public static final double angularStdDevBaseline = 0.06; // Radians
 
     // Standard deviation multipliers for each camera
     // (Adjust to trust some cameras more than others)
-    public static double[] cameraStdDevFactors =
+    public static final double[] cameraStdDevFactors =
         new double[] {
           1.0, // Camera 0
           1.0 // Camera 1
         };
 
     // Multipliers to apply for MegaTag 2 observations
-    public static double linearStdDevMegatag2Factor = 0.5; // More stable than full 3D solve
-    public static double angularStdDevMegatag2Factor =
+    public static final double linearStdDevMegatag2Factor = 0.5; // More stable than full 3D solve
+    public static final double angularStdDevMegatag2Factor =
         Double.POSITIVE_INFINITY; // No rotation data available
   }
 
   public final class PivotConstants {
 
-    public static final int kLeftMotorID = 10;
-    public static final int kRightMotorID = 11;
+    public static final int leftMotorID = 10;
+    public static final int rightMotorID = 11;
 
     public static final DCMotor motorGearbox = DCMotor.getNEO(1);
 
     public static final double motorToPivotAngleRatio = 213.33;
 
-    public static final int kMaxCurrentLimit = 20;
-    public static final double kMaxVoltage = 12;
+    public static final int maxCurrentLimit = 20;
+    public static final double maxVoltage = 12;
 
-    public static final double kRealP = 1.2;
-    public static final double kRealI = 0.0;
-    public static final double kRealD = 0.0;
-    public static final double kSimP = 1.2;
-    public static final double kSimI = 0.0;
-    public static final double kSimD = 0.0;
+    public static final double realP = 1.2;
+    public static final double realI = 0.0;
+    public static final double realD = 0.0;
+    public static final double simP = 1.2;
+    public static final double simI = 0.0;
+    public static final double simD = 0.0;
 
     // These are the voltages of the motors to overcome gravity to reduce sliding
-    public static final double kRealG = 0.14;
-    public static final double kSimG = 0.32;
+    public static final double realG = 0.14;
+    public static final double simG = 0.32;
 
     // Target angle in degrees converted to radians
-    public static final double kHomeAngle = Math.toRadians(40.0);
+    public static final double homeAngle = Math.toRadians(40.0);
 
-    public static final double kLevel1Angle = Math.toRadians(40.0);
-    public static final double kLevel2Angle = Math.toRadians(60.0);
-    public static final double kLevel3Angle = Math.toRadians(72.0);
-    public static final double kLevel4Angle = Math.toRadians(80.0);
-    public static final double kCoralStationAngle = Math.toRadians(74.0);
+    public static final double level1Angle = Math.toRadians(40.0);
+    public static final double level2Angle = Math.toRadians(60.0);
+    public static final double level3Angle = Math.toRadians(72.0);
+    public static final double level4Angle = Math.toRadians(80.0);
+    public static final double coralStationAngle = Math.toRadians(74.0);
 
-    public static final double kHigherAlgaeRemove = Math.toRadians(67.0);
-    public static final double kLowerAlgaeRemove = Math.toRadians(59.0);
+    public static final double higherAlgaeRemove = Math.toRadians(67.0);
+    public static final double lowerAlgaeRemove = Math.toRadians(59.0);
 
-    public static final double kCageStowAngle = Math.toRadians(85.0);
+    public static final double cageStowAngle = Math.toRadians(85.0);
 
     // The error limit before a command will end.
-    public static final double kAngleErrorAllowed = Math.toRadians(10.0);
+    public static final double angleErrorAllowed = Math.toRadians(10.0);
   }
 
   public final class ElevatorConstants {
 
-    public static final int kLeftMotorID = 12;
-    public static final int kRightMotorID = 13;
+    public static final int leftMotorID = 12;
+    public static final int rightMotorID = 13;
 
     public static final DCMotor motorGearbox = DCMotor.getNEO(1);
 
     public static final double motorToDrumRatio = 7.2;
 
-    public static final int kMaxCurrentLimit = 60;
-    public static final double kMaxVoltage = 12;
+    public static final int maxCurrentLimit = 60;
+    public static final double maxVoltage = 12;
 
-    public static final double kRealP = 2.0;
-    public static final double kRealI = 0.0;
-    public static final double kRealD = 0.0;
-    public static final double kSimP = 2.0;
-    public static final double kSimI = 0.0;
-    public static final double kSimD = 0.0;
+    public static final double realP = 2.0;
+    public static final double realI = 0.0;
+    public static final double realD = 0.0;
+    public static final double simP = 2.0;
+    public static final double simI = 0.0;
+    public static final double simD = 0.0;
 
     // These are the voltages of the motors to overcome gravity to reduce sliding
-    public static final double kRealG = 0.4;
-    public static final double kSimG = 2.45;
+    public static final double realG = 0.4;
+    public static final double simG = 2.45;
 
     // Target length in meters
-    public static final double kHomeLength = 0.659;
+    public static final double homeLength = 0.659;
 
-    public static final double kLevel1Length = 0.659;
-    public static final double kLevel2Length = 0.849;
-    public static final double kLevel3Length = 1.179;
-    public static final double kLevel4Length = 1.959;
-    public static final double kPastStage2 = 1.5;
-    public static final double kCoralStationLength = 0.689;
+    public static final double level1Length = 0.659;
+    public static final double level2Length = 0.849;
+    public static final double level3Length = 1.179;
+    public static final double level4Length = 1.959;
+    public static final double pastStage2 = 1.5;
+    public static final double coralStationLength = 0.689;
 
     // The number of meter the elevator has to move to active the second stage.
-    public static final double kSecondStageTrip = 0.75;
+    public static final double secondStageTrip = 0.75;
 
     // The error limit before a command will end.
-    public static final double kLengthErrorAllowed = 0.1;
+    public static final double lengthErrorAllowed = 0.1;
   }
 
   public final class WristConstants {
 
-    public static final int kMotorID = 14;
+    public static final int motorID = 14;
 
     public static final DCMotor motorGearbox = DCMotor.getNEO(1);
 
     public static final double motorToWheelRatio = 48.0;
 
-    public static final int kMaxCurrentLimit = 60;
-    public static final double kMaxVoltage = 12;
+    public static final int maxCurrentLimit = 60;
+    public static final double maxVoltage = 12;
 
-    public static final double kRealP = 0.6;
-    public static final double kRealI = 0.0;
-    public static final double kRealD = 0.0;
-    public static final double kSimP = 0.6;
-    public static final double kSimI = 0.0;
-    public static final double kSimD = 0.0;
+    public static final double realP = 0.6;
+    public static final double realI = 0.0;
+    public static final double realD = 0.0;
+    public static final double simP = 0.6;
+    public static final double simI = 0.0;
+    public static final double simD = 0.0;
 
     // These are the voltages of the motors to overcome gravity to reduce sliding
-    public static final double kRealG = 0.13;
-    public static final double kSimG = 0.0;
+    public static final double realG = 0.13;
+    public static final double simG = 0.0;
 
     // Target angle in degrees converted to radians
-    public static final double kHomeAngle = Math.toRadians(0.0);
+    public static final double homeAngle = Math.toRadians(0.0);
 
-    public static final double kLevel1Angle = Math.toRadians(90.0);
-    public static final double kLevel2Angle = Math.toRadians(168.0);
-    public static final double kLevel3Angle = Math.toRadians(180.0);
-    public static final double kLevel4Angle = Math.toRadians(192.0);
-    public static final double kPastStage2 = Math.toRadians(90.0);
-    public static final double kCoralStationAngle = Math.toRadians(26.0);
+    public static final double level1Angle = Math.toRadians(90.0);
+    public static final double level2Angle = Math.toRadians(168.0);
+    public static final double level3Angle = Math.toRadians(180.0);
+    public static final double level4Angle = Math.toRadians(192.0);
+    public static final double pastStage2 = Math.toRadians(90.0);
+    public static final double coralStationAngle = Math.toRadians(26.0);
 
-    public static final double kHigherAlgaeRemove = Math.toRadians(157.0);
-    public static final double kLowerAlgaeRemove = Math.toRadians(155.0);
+    public static final double higherAlgaeRemove = Math.toRadians(157.0);
+    public static final double lowerAlgaeRemove = Math.toRadians(155.0);
 
     // The error limit before a command will end.
-    public static final double kAngleErrorAllowed = Math.toRadians(5.0);
+    public static final double angleErrorAllowed = Math.toRadians(5.0);
   }
 
   public final class IntakeConstants {
 
-    public static final int kMotorID = 15;
+    public static final int motorID = 15;
 
     public static final DCMotor motorGearbox = DCMotor.getNEO(1);
 
     public static final double motorToWheelRatio = 3.0;
 
-    public static final int kMaxCurrentLimit = 40;
-    public static final double kMaxVoltage = 12;
+    public static final int maxCurrentLimit = 40;
+    public static final double maxVoltage = 12;
   }
 
   public final class ClimberConstants {
 
-    public static final int kMotorID = 16;
+    public static final int motorID = 16;
 
     public static final DCMotor motorGearbox = DCMotor.getNEO(1);
 
     public static final double motorToWheelRatio = 100.0;
 
-    public static final int kMaxCurrentLimit = 80;
-    public static final double kMaxVoltage = 12.0;
+    public static final int maxCurrentLimit = 80;
+    public static final double maxVoltage = 12.0;
 
-    public static final double kRealP = 3.0;
-    public static final double kRealI = 0.0;
-    public static final double kRealD = 0.0;
-    public static final double kSimP = 3.0;
-    public static final double kSimI = 0.0;
-    public static final double kSimD = 0.0;
+    public static final double realP = 3.0;
+    public static final double realI = 0.0;
+    public static final double realD = 0.0;
+    public static final double simP = 3.0;
+    public static final double simI = 0.0;
+    public static final double simD = 0.0;
 
-    public static final double kHomeAngle = Math.toRadians(0.0);
+    public static final double homeAngle = Math.toRadians(0.0);
 
-    public static final double kActiveAngle = Math.toRadians(90.0);
+    public static final double activeAngle = Math.toRadians(90.0);
 
-    public static final double kAngleErrorAllowed = Math.toRadians(1.0);
+    public static final double angleErrorAllowed = Math.toRadians(1.0);
   }
 
   public final class OIConstants {
 
-    public static final double kDriveDeadband = 0.05;
+    public static final double driveDeadband = 0.05;
   }
 
   public final class AutoDriveConstants {

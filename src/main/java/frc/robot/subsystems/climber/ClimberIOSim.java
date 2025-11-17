@@ -29,7 +29,7 @@ public class ClimberIOSim implements ClimberIO {
             ClimberConstants.motorGearbox);
 
     pidController =
-        new PIDController(ClimberConstants.kSimP, ClimberConstants.kSimI, ClimberConstants.kSimD);
+        new PIDController(ClimberConstants.simP, ClimberConstants.simI, ClimberConstants.simD);
   }
 
   public void updateInputs(ClimberIOInputs inputs) {

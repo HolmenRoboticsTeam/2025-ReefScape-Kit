@@ -30,8 +30,8 @@ public class PivotIOReal implements PivotIO {
 
   public PivotIOReal() {
 
-    this.m_leftMotor = new SparkMax(PivotConstants.kLeftMotorID, MotorType.kBrushless);
-    this.m_rightMotor = new SparkMax(PivotConstants.kRightMotorID, MotorType.kBrushless);
+    this.m_leftMotor = new SparkMax(PivotConstants.leftMotorID, MotorType.kBrushless);
+    this.m_rightMotor = new SparkMax(PivotConstants.rightMotorID, MotorType.kBrushless);
 
     tryUntilOk(
         m_leftMotor,
@@ -59,7 +59,7 @@ public class PivotIOReal implements PivotIO {
                 this.m_rightMotor.getAbsoluteEncoder().getPosition() * (Math.PI / 2.0)));
 
     this.m_pivotPIDController =
-        new PIDController(PivotConstants.kRealP, PivotConstants.kRealI, PivotConstants.kRealD);
+        new PIDController(PivotConstants.realP, PivotConstants.realI, PivotConstants.realD);
   }
 
   @Override
@@ -77,7 +77,7 @@ public class PivotIOReal implements PivotIO {
     this.m_targetAngle = angle;
     double speed = this.m_pivotPIDController.calculate(this.m_rightEncoder.getPosition(), angle);
     double volts = 12.0 * MathUtil.clamp(speed, -1.0, 1.0);
-    volts += PivotConstants.kRealG;
+    volts += PivotConstants.realG;
 
     this.m_leftMotor.setVoltage(volts);
     this.m_rightMotor.setVoltage(volts);

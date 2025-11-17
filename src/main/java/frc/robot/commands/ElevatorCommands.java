@@ -37,7 +37,7 @@ public class ElevatorCommands {
                 allowEndCondition
                     ? () ->
                         Math.abs(elevator.getCurrentLength() - targetLength.getAsDouble())
-                            < ElevatorConstants.kLengthErrorAllowed
+                            < ElevatorConstants.lengthErrorAllowed
                     : () -> false)
             .withName("elevatorToTarget");
 
@@ -64,7 +64,7 @@ public class ElevatorCommands {
    * @return the command with the logic
    */
   public static Command elevatorToHome(Elevator elevator, boolean allowEndCondition) {
-    return elevatorToTarget(elevator, ElevatorConstants.kHomeLength, allowEndCondition)
+    return elevatorToTarget(elevator, ElevatorConstants.homeLength, allowEndCondition)
         .withName("elevatorToHome");
   }
 
