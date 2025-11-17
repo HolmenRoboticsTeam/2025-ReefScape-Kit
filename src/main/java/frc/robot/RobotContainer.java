@@ -332,9 +332,9 @@ public class RobotContainer {
                         .alongWith(ControllerCommands.setRumble(controller, 0.2, 0.2)))
                 .withName("level4UpAndHoldWithRumble"));
 
-    // controller
-    //     .a()
-    //     .onFalse(ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.LEVEL2));
+    controller
+        .a()
+        .onFalse(ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.LEVEL2));
     controller
         .b()
         .onFalse(ArmControlCommands.armDownCommand(pivot, elevator, wrist, ArmPosition.LEVEL3));
