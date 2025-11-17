@@ -224,16 +224,16 @@ public class AutoDriveCommands {
         .andThen(Commands.runOnce(() -> drive.stopWithX()))
         .andThen(
             Commands.runOnce(
-                () -> {
-                  vision.setLightState(true, 0);
-                  vision.setLightState(true, 1);
-                }))
-        .andThen(Commands.waitSeconds(0.1))
-        .finallyDo(
-            () -> {
-              vision.setLightState(false, 0);
-              vision.setLightState(false, 1);
-            })
+                    () -> {
+                      vision.setLightState(true, 0);
+                      vision.setLightState(true, 1);
+                    })
+                .andThen(Commands.waitSeconds(0.1))
+                .finallyDo(
+                    () -> {
+                      vision.setLightState(false, 0);
+                      vision.setLightState(false, 1);
+                    }))
         .withName("preciseMoveToPose");
   }
 
