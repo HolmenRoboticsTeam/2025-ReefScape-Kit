@@ -295,19 +295,19 @@ public class RobotContainer {
 
     // These are on the button box, so consider changing (or keeping them for
     // testing).
-    // controller
-    //     .a()
-    //     .whileTrue(
-    //         ArmControlCommands.armUpCommand(
-    //                 pivot, elevator, wrist, ArmPosition.PAST_STAGE2, ArmSystem.ALL)
-    //             .andThen(
-    //                 ArmControlCommands.armUpCommand(
-    //                     pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL))
-    //             .andThen(
-    //                 ArmControlCommands.armHoldAtCommand(
-    //                         pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL)
-    //                     .alongWith(ControllerCommands.setRumble(controller, 0.2, 0.2)))
-    //             .withName("level2UpAndHoldWithRumble"));
+    controller
+        .a()
+        .whileTrue(
+            ArmControlCommands.armUpCommand(
+                    pivot, elevator, wrist, ArmPosition.PAST_STAGE2, ArmSystem.ALL)
+                .andThen(
+                    ArmControlCommands.armUpCommand(
+                        pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL))
+                .andThen(
+                    ArmControlCommands.armHoldAtCommand(
+                            pivot, elevator, wrist, ArmPosition.LEVEL2, ArmSystem.ALL)
+                        .alongWith(ControllerCommands.setRumble(controller, 0.2, 0.2)))
+                .withName("level2UpAndHoldWithRumble"));
     controller
         .b()
         .whileTrue(
