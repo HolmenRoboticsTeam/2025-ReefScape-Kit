@@ -49,8 +49,8 @@ public final class Constants {
   public final class DriveConstants {
     public static final double maxSpeedMetersPerSec = 4.5;
     public static final double maxAngularSpeed = 2 * Math.PI;
-    public static final double odometryFrequency =
-        100.0; // Hz TODO: Up this value. CAN util is at ~40%, so increase til ~75%
+    public static final double odometryFrequency = 100.0; // Hz
+
     public static final double trackWidth = Units.inchesToMeters(29.0);
     public static final double wheelBase = Units.inchesToMeters(29.0);
     public static final double driveBaseRadius = Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
@@ -125,7 +125,7 @@ public final class Constants {
     public static final double turnPIDMaxInput = 2 * Math.PI; // Radians
 
     // PathPlanner configuration
-    public static final double robotMassKg = 50.219; // TODO: update based on robot mass
+    public static final double robotMassKg = 50.219;
     public static final double robotMOI = 4.859;
     public static final double wheelCOF = 1.190;
     public static final RobotConfig ppConfig =
@@ -148,15 +148,15 @@ public final class Constants {
         AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
     // Camera names, must match names configured on coprocessor
-    public static final String leftLLName = "leftLL2+";
-    public static final String rightLLName = "rightLL3";
+    public static final String leftLLName = "limelight-left";
+    public static final String rightLLName = "limelight-right";
 
     // Robot to camera transforms
     // (Not used by Limelight, configure in web UI instead)
     public static final Transform3d robotToLeftLL =
-        new Transform3d(-0.1397, 0.279, 0.254, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
+        new Transform3d(-0.202, 0.3, 0.18, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
     public static final Transform3d robotToRightLL =
-        new Transform3d(-0.1397, -0.279, 0.2413, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
+        new Transform3d(-0.202, -0.39, 0.21, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
 
     // Basic filtering thresholds
     public static final double maxAmbiguity = 0.3;
@@ -171,8 +171,8 @@ public final class Constants {
     // (Adjust to trust some cameras more than others)
     public static final double[] cameraStdDevFactors =
         new double[] {
-          1.0, // Camera 0
-          1.0 // Camera 1
+          1.0, // left
+          1.0 // right
         };
 
     // Multipliers to apply for MegaTag 2 observations
