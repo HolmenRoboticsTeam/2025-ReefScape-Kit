@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.wrist;
 
+import static frc.robot.util.SparkUtil.tryUntilOk;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -29,8 +31,15 @@ public class WristIOReal implements WristIO {
     this.m_wristMotor = new SparkMax(WristConstants.motorID, MotorType.kBrushless);
     this.m_encoder = m_wristMotor.getEncoder();
 
-    this.m_wristMotor.configure(
-        WristConfig.wristConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    tryUntilOk(
+        m_wristMotor,
+        5,
+        () ->
+            m_wristMotor.configure(
+                WristConfig.wristConfig,
+                ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters));
+    tryUntilOk(m_wristMotor, 5, () -> m_encoder.setPosition(0.0));
 
     this.m_wristPIDController =
         new PIDController(WristConstants.realP, WristConstants.realI, WristConstants.realD);

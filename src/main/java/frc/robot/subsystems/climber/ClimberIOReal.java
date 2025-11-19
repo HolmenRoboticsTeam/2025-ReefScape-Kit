@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.climber;
 
+import static frc.robot.util.SparkUtil.tryUntilOk;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -29,8 +31,15 @@ public class ClimberIOReal implements ClimberIO {
     climberMotor = new SparkMax(ClimberConstants.motorID, MotorType.kBrushless);
     encoder = climberMotor.getEncoder();
 
-    climberMotor.configure(
-        WristConfig.wristConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    tryUntilOk(
+        climberMotor,
+        5,
+        () ->
+            climberMotor.configure(
+                WristConfig.wristConfig,
+                ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters));
+    tryUntilOk(climberMotor, 5, () -> encoder.setPosition(0.0));
 
     pidController =
         new PIDController(ClimberConstants.realP, ClimberConstants.realI, ClimberConstants.realD);

@@ -33,6 +33,8 @@ public class IntakeIOReal implements IntakeIO {
                 IntakeConfig.intakeConfig,
                 ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters));
+
+    tryUntilOk(m_intakeMotor, 5, () -> m_encoder.setPosition(0.0));
   }
 
   @Override
