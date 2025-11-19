@@ -15,15 +15,16 @@ package frc.robot.subsystems.drive;
 
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants.DriveConstants;
 import java.util.Queue;
 
 /** IO implementation for NavX. */
 public class GyroIONavX implements GyroIO {
-  private final AHRS navX = new AHRS(NavXComType.kUSB1, (byte) DriveConstants.odometryFrequency);
+  private final AHRS navX =
+      new AHRS(NavXComType.kUSB1, MathUtil.clamp((int) DriveConstants.odometryFrequency, 4, 200));
   private final Queue<Double> yawPositionQueue;
   private final Queue<Double> yawTimestampQueue;
 
@@ -47,6 +48,6 @@ public class GyroIONavX implements GyroIO {
     yawTimestampQueue.clear();
     yawPositionQueue.clear();
 
-    inputs.angularPosition = new Rotation3d(navX.getRoll(), navX.getPitch(), navX.getYaw());
+    inputs.angularPosition = navX.getRotation3d();
   }
 }

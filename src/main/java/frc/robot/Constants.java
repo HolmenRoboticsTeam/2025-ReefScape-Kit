@@ -49,7 +49,7 @@ public final class Constants {
   public final class DriveConstants {
     public static final double maxSpeedMetersPerSec = 4.5;
     public static final double maxAngularSpeed = 2 * Math.PI;
-    public static final double odometryFrequency = 100.0; // Hz
+    public static final double odometryFrequency = 400.0; // Hz
 
     public static final double trackWidth = Units.inchesToMeters(29.0);
     public static final double wheelBase = Units.inchesToMeters(29.0);
