@@ -168,7 +168,7 @@ public final class MotorConfigs {
     public static final SparkMaxConfig climberConfig = new SparkMaxConfig();
 
     static {
-      climberConfig.inverted(false);
+      climberConfig.inverted(true);
 
       // Changes all inputs and outputs from motor rotations to pivot angle in radians
       double positionConversionFactorRelative = (2 * Math.PI) / ClimberConstants.motorToWheelRatio;

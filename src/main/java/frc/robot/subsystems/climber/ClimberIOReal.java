@@ -14,7 +14,7 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ClimberConstants;
-import frc.robot.MotorConfigs.WristConfig;
+import frc.robot.MotorConfigs.ClimberConfig;
 
 /** Add your docs here. */
 public class ClimberIOReal implements ClimberIO {
@@ -36,10 +36,10 @@ public class ClimberIOReal implements ClimberIO {
         5,
         () ->
             climberMotor.configure(
-                WristConfig.wristConfig,
+                ClimberConfig.climberConfig,
                 ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters));
-    tryUntilOk(climberMotor, 5, () -> encoder.setPosition(0.0));
+    tryUntilOk(climberMotor, 5, () -> encoder.setPosition(ClimberConstants.homeAngle));
 
     pidController =
         new PIDController(ClimberConstants.realP, ClimberConstants.realI, ClimberConstants.realD);
@@ -60,5 +60,9 @@ public class ClimberIOReal implements ClimberIO {
     double volts = 12.0 * MathUtil.clamp(speed, -1.0, 1.0);
 
     climberMotor.setVoltage(volts);
+  }
+
+  public void resetEncoder() {
+    encoder.setPosition(ClimberConstants.homeAngle);
   }
 }

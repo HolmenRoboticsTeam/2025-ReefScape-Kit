@@ -51,8 +51,8 @@ public final class Constants {
     public static final double maxAngularSpeed = 2 * Math.PI;
     public static final double odometryFrequency = 400.0; // Hz
 
-    public static final double trackWidth = Units.inchesToMeters(29.0);
-    public static final double wheelBase = Units.inchesToMeters(29.0);
+    public static final double trackWidth = Units.inchesToMeters(26.0);
+    public static final double wheelBase = Units.inchesToMeters(26.0);
     public static final double driveBaseRadius = Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
     public static final Translation2d[] moduleTranslations =
         new Translation2d[] {
@@ -154,9 +154,11 @@ public final class Constants {
     // Robot to camera transforms
     // (Not used by Limelight, configure in web UI instead)
     public static final Transform3d robotToLeftLL =
-        new Transform3d(-0.202, 0.3, 0.18, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
+        new Transform3d(-0.16605, -0.36, 0.23, new Rotation3d(0.0, Math.toRadians(10.0), 0.0));
     public static final Transform3d robotToRightLL =
-        new Transform3d(-0.202, -0.39, 0.21, new Rotation3d(0.0, Math.toRadians(-10.0), 0.0));
+        new Transform3d(-0.14605, 0.37, 0.19, new Rotation3d(0.0, Math.toRadians(10.0), 0.0));
+
+    // The translation from the left LL to the right LL is 0.002, 0.73, -0.02
 
     // Basic filtering thresholds
     public static final double maxAmbiguity = 0.3;
@@ -216,7 +218,7 @@ public final class Constants {
     public static final double higherAlgaeRemove = Math.toRadians(67.0);
     public static final double lowerAlgaeRemove = Math.toRadians(59.0);
 
-    public static final double cageStowAngle = Math.toRadians(85.0);
+    public static final double cageStowAngle = Math.toRadians(75.0);
 
     // The error limit before a command will end.
     public static final double angleErrorAllowed = Math.toRadians(10.0);
@@ -319,12 +321,12 @@ public final class Constants {
 
     public static final DCMotor motorGearbox = DCMotor.getNEO(1);
 
-    public static final double motorToWheelRatio = 100.0;
+    public static final double motorToWheelRatio = 1000.0;
 
     public static final int maxCurrentLimit = 80;
     public static final double maxVoltage = 12.0;
 
-    public static final double realP = 3.0;
+    public static final double realP = 2.5;
     public static final double realI = 0.0;
     public static final double realD = 0.0;
     public static final double simP = 3.0;
@@ -333,7 +335,7 @@ public final class Constants {
 
     public static final double homeAngle = Math.toRadians(0.0);
 
-    public static final double activeAngle = Math.toRadians(90.0);
+    public static final double activeAngle = Math.toRadians(85.0);
 
     public static final double angleErrorAllowed = Math.toRadians(1.0);
   }

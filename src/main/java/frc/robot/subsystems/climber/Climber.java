@@ -35,4 +35,8 @@ public class Climber extends SubsystemBase {
   public double getCurrentAngle() {
     return inputs.currentPosition;
   }
+
+  public void resetEncoder() {
+    io.resetEncoder();
+  }
 }

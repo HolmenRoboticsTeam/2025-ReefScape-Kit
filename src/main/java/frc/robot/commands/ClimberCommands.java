@@ -30,7 +30,7 @@ public class ClimberCommands {
                         Math.abs(climber.getCurrentAngle() - targetAngle.getAsDouble())
                             < ClimberConstants.angleErrorAllowed
                     : () -> false)
-            .withName("wristToTarget");
+            .withName("climberToTarget");
 
     return returnCommand;
   }

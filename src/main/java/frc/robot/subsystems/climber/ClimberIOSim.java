@@ -51,4 +51,8 @@ public class ClimberIOSim implements ClimberIO {
 
     appliedVolts = volts;
   }
+
+  public void resetEncoder() {
+    climberMotor.setAngle(ClimberConstants.homeAngle);
+  }
 }
