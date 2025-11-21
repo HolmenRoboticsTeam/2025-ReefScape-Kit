@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -18,6 +19,9 @@ import frc.robot.subsystems.wrist.Wrist;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 /** A class containing arm control command for moving up, down, and holding at a position. */
 public class ArmControlCommands {
@@ -245,6 +249,58 @@ public class ArmControlCommands {
     if (activeSystems.contains(ArmSystem.WRIST)) { // holds the wrist
       returnCommand.addCommands(WristCommands.wristToTarget(wrist, wristHold, false));
     }
+
+    return returnCommand;
+  }
+
+  /**
+   * Returns a command that will pull the arm back until the robot is balanced using on the pitch of
+   * the robot. DO NOT CALL THIS COMMAND UNTIL THE ROBOT IS OFF THE GROUND, this will put the
+   * elevator in a position to be hit as it will well out side of the frame.
+   *
+   * @param robotPitch the gyro (robot) pitch
+   * @param pivot The pivot subsystem
+   * @param elevator The elevator subsystem
+   * @param wrist The wrist subsystem
+   * @return A commend with the given logic
+   */
+  public static Command hangBalanceCommand(
+      Supplier<Optional<Double>> robotPitch, Pivot pivot, Elevator elevator, Wrist wrist) {
+
+    // Converts the enum to target positions
+    double[] subsystemHold = getSubsystemPositions(ArmPosition.CAGE);
+    double elevatorHold = subsystemHold[1];
+    double wristHold = subsystemHold[2];
+
+    // The command to return
+    ParallelCommandGroup returnCommand = new ParallelCommandGroup();
+
+    // Reset the PID controllers
+    returnCommand.addCommands(
+        Commands.runOnce(
+            () -> {
+              pivot.resetPID();
+              elevator.resetPID();
+              wrist.resetPID();
+            }));
+
+    // A target position for the pivot based on the gyro pitch to balance the hanging robot
+    DoubleSupplier pivotTarget =
+        () ->
+            MathUtil.clamp( // The input value is the current angle plus the pitch. Should the pitch
+                // value be empty (gyro disconnected) don't risk moving the pivot.
+                pivot.getCurrentAngle()
+                    + MathUtil.clamp(
+                        robotPitch.get().isEmpty() ? 0.0 : robotPitch.get().get(), -5.0, 5.0),
+                PivotConstants.homeAngle,
+                PivotConstants.maxPivotAngle);
+
+    // Sets the target angle of the pivot that was calculated
+    returnCommand.addCommands(PivotCommands.pivotToTarget(pivot, pivotTarget, false));
+
+    // Hold the elevator and wrist at cage position
+    returnCommand.addCommands(ElevatorCommands.elevatorToTarget(elevator, elevatorHold, false));
+    returnCommand.addCommands(WristCommands.wristToTarget(wrist, wristHold, false));
 
     return returnCommand;
   }

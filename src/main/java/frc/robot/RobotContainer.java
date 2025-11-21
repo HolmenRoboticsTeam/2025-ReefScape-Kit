@@ -394,9 +394,21 @@ public class RobotContainer {
                     .beforeStarting(Commands.waitSeconds(0.5))));
 
     cageStow.onFalse(
-        ArmControlCommands.armHoldAtCommand(pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
+        ClimberCommands.climberToTarget(climber, () -> ClimberConstants.homeAngle, false)
             .alongWith(
-                ClimberCommands.climberToTarget(climber, () -> ClimberConstants.homeAngle, false)));
+                ArmControlCommands.armHoldAtCommand(
+                    pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)));
+
+    // TODO: set the value of PivotConstants.maxPivotAngle to the robot doesn't rip itself apart.
+    // cageStow.onFalse(
+    //     ClimberCommands.climberToTarget(climber, () -> ClimberConstants.homeAngle, false)
+    //         .alongWith(
+    //             ArmControlCommands.armHoldAtCommand(
+    //                     pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)
+    //                 .withTimeout(2.0)
+    //                 .andThen(
+    //                     ArmControlCommands.hangBalanceCommand(
+    //                         () -> drive.getPitch(), pivot, elevator, wrist))));
 
     lowerAlgaeRemove.whileTrue(
         ArmControlCommands.armUpCommand(

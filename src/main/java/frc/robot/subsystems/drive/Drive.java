@@ -52,6 +52,7 @@ import frc.robot.util.Elastic;
 import frc.robot.util.Elastic.Notification;
 import frc.robot.util.Elastic.Notification.NotificationLevel;
 import frc.robot.util.LocalADStarAK;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
@@ -353,6 +354,14 @@ public class Drive extends SubsystemBase {
   /** Returns the current odometry rotation. */
   public Rotation2d getRotation() {
     return getPose().getRotation();
+  }
+
+  public Optional<Double> getPitch() {
+    if (gyroInputs.connected) {
+      return Optional.of(gyroInputs.pitchPosition.getRadians());
+    } else {
+      return Optional.empty();
+    }
   }
 
   /** Resets the current odometry pose. */

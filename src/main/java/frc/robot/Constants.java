@@ -15,7 +15,6 @@ package frc.robot;
 
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -195,6 +194,8 @@ public final class Constants {
 
     public static final int maxCurrentLimit = 20;
     public static final double maxVoltage = 12;
+
+    public static final double maxPivotAngle = Math.toRadians(120.0);
 
     public static final double realP = 1.2;
     public static final double realI = 0.0;
