@@ -171,60 +171,84 @@ public class DynamicAutoCommands {
 
     SequentialCommandGroup primaryCommandGroup = new SequentialCommandGroup();
 
-    // Moves to the chosen reef side
+    //
+    // #################### TO THE TARGET BRANCH ####################
+
+    // Moves to the chosen reef side while holding the arm at down
     primaryCommandGroup.addCommands(
         AutoDriveCommands.pathFindToReef(drive, vision, reefSide, constraints, false)
             .deadlineFor(
                 ArmControlCommands.armHoldAtCommand(
                     pivot, elevator, wrist, ArmPosition.HOME, ArmSystem.ALL)));
 
-    // Scores on the chosen reef level
+    // Moves arm up to target branch while precise moving the drive
     primaryCommandGroup.addCommands(
         ArmControlCommands.armUpCommand(pivot, elevator, wrist, reefLevel, ArmSystem.ALL)
             .deadlineFor(
-                AutoDriveCommands.pathFindToReef(drive, vision, reefSide, constraints, true))
-            .andThen(
-                IntakeCommands.intakeRun(intake, () -> 1.0)
-                    .withTimeout(0.5)
-                    .deadlineFor(
-                        ArmControlCommands.armHoldAtCommand(
-                                pivot, elevator, wrist, reefLevel, ArmSystem.ALL)
-                            .alongWith(
-                                AutoDriveCommands.pathFindToReef(
-                                    drive, vision, reefSide, constraints, true)))));
+                AutoDriveCommands.pathFindToReef(drive, vision, reefSide, constraints, true)));
+
+    // Lets arm come to rest on target branch
+    primaryCommandGroup.addCommands(
+        Commands.waitSeconds(0.5)
+            .deadlineFor(
+                ArmControlCommands.armHoldAtCommand(
+                    pivot, elevator, wrist, reefLevel, ArmSystem.ALL)));
+
+    //
+    // #################### SCORE THE CORAL ####################
+
+    // Shoots out the intake while holding the arm at the target branch and precise moving the drive
+    primaryCommandGroup.addCommands(
+        IntakeCommands.intakeRun(intake, () -> 1.0)
+            .withTimeout(0.5)
+            .deadlineFor(
+                ArmControlCommands.armHoldAtCommand(
+                        pivot, elevator, wrist, reefLevel, ArmSystem.ALL)
+                    .alongWith(
+                        AutoDriveCommands.pathFindToReef(
+                            drive, vision, reefSide, constraints, true))));
 
     // Pause to let the elevator move down
     primaryCommandGroup.addCommands(
         Commands.waitSeconds(0.75)
             .deadlineFor(ArmControlCommands.armDownCommand(pivot, elevator, wrist, reefLevel)));
 
+    // Turns off the intake
+    primaryCommandGroup.addCommands(IntakeCommands.intakeRun(intake, () -> 0.0).until(() -> true));
+
+    //
+    // #################### MOVE TO THE CORAL STATION ####################
+
     // Moves to the chosen coral station
     primaryCommandGroup.addCommands(
         AutoDriveCommands.pathFindToCoralStation(drive, vision, coralStation, constraints, false)
             .deadlineFor(
-                IntakeCommands.intakeRun(intake, () -> -1.0)
-                    .alongWith(
-                        ArmControlCommands.armDownCommand(pivot, elevator, wrist, reefLevel)
-                            .andThen(
-                                ArmControlCommands.armHoldAtCommand(
-                                    pivot, elevator, wrist, ArmPosition.HOME, ArmSystem.ALL)))));
+                ArmControlCommands.armDownCommand(pivot, elevator, wrist, reefLevel)
+                    .andThen(
+                        ArmControlCommands.armHoldAtCommand(
+                            pivot, elevator, wrist, ArmPosition.HOME, ArmSystem.ALL))));
 
-    // Grabs coral out of the station
+    // Moves arm up to the coral station while precise moving the drive
     primaryCommandGroup.addCommands(
         ArmControlCommands.armUpCommand(
                 pivot, elevator, wrist, ArmPosition.CORAL_STATION, ArmSystem.ALL)
             .deadlineFor(
                 AutoDriveCommands.pathFindToCoralStation(
-                    drive, vision, coralStation, constraints, true))
-            .andThen(
-                IntakeCommands.intakeRun(intake, () -> -1.0)
-                    .withTimeout(2.0)
-                    .deadlineFor(
-                        ArmControlCommands.armHoldAtCommand(
-                                pivot, elevator, wrist, ArmPosition.CORAL_STATION, ArmSystem.ALL)
-                            .alongWith(
-                                AutoDriveCommands.pathFindToCoralStation(
-                                    drive, vision, coralStation, constraints, true)))));
+                    drive, vision, coralStation, constraints, true)));
+
+    //
+    // #################### GRABS THE NEW CORAL ####################
+
+    // Runs the intake while holding the arm and precise moving the drive
+    primaryCommandGroup.addCommands(
+        IntakeCommands.intakeRun(intake, () -> -1.0)
+            .withTimeout(2.0)
+            .deadlineFor(
+                ArmControlCommands.armHoldAtCommand(
+                        pivot, elevator, wrist, ArmPosition.CORAL_STATION, ArmSystem.ALL)
+                    .alongWith(
+                        AutoDriveCommands.pathFindToCoralStation(
+                            drive, vision, coralStation, constraints, true))));
 
     return primaryCommandGroup;
   }

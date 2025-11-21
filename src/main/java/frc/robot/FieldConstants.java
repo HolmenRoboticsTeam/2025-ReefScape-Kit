@@ -28,7 +28,7 @@ public class FieldConstants {
         (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Blue);
 
     private static final Transform2d positionFromTagOffset =
-        new Transform2d(0.5, 0, new Rotation2d(Math.PI));
+        new Transform2d(0.45, 0, new Rotation2d(Math.PI));
 
     // These are based on the view of the reef from the driver station of the same team
     private static final Pose2d frontReefTag =
@@ -78,7 +78,7 @@ public class FieldConstants {
         DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Blue;
 
     private static final Transform2d positionFromTagOffset =
-        new Transform2d(0.5, 0, new Rotation2d());
+        new Transform2d(0.4, 0, new Rotation2d());
 
     // These are based on the view of the coral station from the driver station of the same team
     private static final Pose2d leftCoralTag =

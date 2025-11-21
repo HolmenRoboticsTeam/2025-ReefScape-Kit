@@ -163,8 +163,8 @@ public class AutoDriveCommands {
         .withName("pathFindToCoralStation");
   }
 
-  private static PIDController preciseXMovePIDController = new PIDController(1.0, 0.1, 0.0);
-  private static PIDController preciseYMovePIDController = new PIDController(1.0, 0.1, 0.0);
+  private static PIDController preciseXMovePIDController = new PIDController(0.5, 0.1, 0.0);
+  private static PIDController preciseYMovePIDController = new PIDController(0.5, 0.1, 0.0);
 
   /**
    * Uses PID controllers to move the robot into the near perfect pose. No rotation. Doesn't use
