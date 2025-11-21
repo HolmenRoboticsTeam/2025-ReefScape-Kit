@@ -149,8 +149,8 @@ public final class Constants {
         AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
     // Camera names, must match names configured on coprocessor
-    public static final String leftLLName = "limelight-left";
-    public static final String rightLLName = "limelight-right";
+    public static final String leftLLName = "limelight-left"; // LL2+
+    public static final String rightLLName = "limelight-right"; // LL3
 
     // Robot to camera transforms
     // (Not used by Limelight, configure in web UI instead)
@@ -174,7 +174,7 @@ public final class Constants {
     // (Adjust to trust some cameras more than others)
     public static final double[] cameraStdDevFactors =
         new double[] {
-          1.0, // left
+          0.5, // left
           1.0 // right
         };
 
