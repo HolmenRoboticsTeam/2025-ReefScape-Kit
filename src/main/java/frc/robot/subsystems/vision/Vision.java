@@ -13,6 +13,11 @@
 
 package frc.robot.subsystems.vision;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -28,9 +33,6 @@ import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
 import frc.robot.util.Elastic;
 import frc.robot.util.Elastic.Notification;
 import frc.robot.util.Elastic.Notification.NotificationLevel;
-import java.util.ArrayList;
-import java.util.List;
-import org.littletonrobotics.junction.Logger;
 
 public class Vision extends SubsystemBase {
   private final VisionConsumer consumer;
@@ -72,16 +74,16 @@ public class Vision extends SubsystemBase {
   }
 
   // Initialize logging values
-  List<Pose3d> allTagPoses = new ArrayList<>();
-  List<Pose3d> allRobotPoses = new ArrayList<>();
-  List<Pose3d> allRobotPosesAccepted = new ArrayList<>();
-  List<Pose3d> allRobotPosesRejected = new ArrayList<>();
+  private final List<Pose3d> allTagPoses = new ArrayList<>();
+  private final List<Pose3d> allRobotPoses = new ArrayList<>();
+  private final List<Pose3d> allRobotPosesAccepted = new ArrayList<>();
+  private final List<Pose3d> allRobotPosesRejected = new ArrayList<>();
 
   // Initialize logging values
-  List<Pose3d> tagPoses = new ArrayList<>();
-  List<Pose3d> robotPoses = new ArrayList<>();
-  List<Pose3d> robotPosesAccepted = new ArrayList<>();
-  List<Pose3d> robotPosesRejected = new ArrayList<>();
+  private final List<Pose3d> tagPoses = new ArrayList<>();
+  private final List<Pose3d> robotPoses = new ArrayList<>();
+  private final List<Pose3d> robotPosesAccepted = new ArrayList<>();
+  private final List<Pose3d> robotPosesRejected = new ArrayList<>();
 
   @Override
   public void periodic() {
