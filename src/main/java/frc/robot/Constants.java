@@ -218,7 +218,7 @@ public final class Constants {
     public static final double higherAlgaeRemove = Math.toRadians(67.0);
     public static final double lowerAlgaeRemove = Math.toRadians(59.0);
 
-    public static final double cageStowAngle = Math.toRadians(75.0);
+    public static final double cageStowAngle = Math.toRadians(95.0);
 
     // The error limit before a command will end.
     public static final double angleErrorAllowed = Math.toRadians(10.0);
