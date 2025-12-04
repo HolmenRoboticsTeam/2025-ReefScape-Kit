@@ -41,6 +41,13 @@ public class DynamicAutoCommands {
           DriveConstants.maxAngularSpeed,
           DriveConstants.maxAngularSpeed);
 
+  public static final PathConstraints slowConstraints =
+      new PathConstraints(
+          DriveConstants.maxSpeedMetersPerSec / 2.0,
+          DriveConstants.maxSpeedMetersPerSec / 2.0,
+          DriveConstants.maxAngularSpeed,
+          DriveConstants.maxAngularSpeed);
+
   private static LoggedDashboardChooser<Pose2d> startingPose =
       new LoggedDashboardChooser<>(networkKeyPrefix + "Starting Pose");
 
@@ -176,10 +183,10 @@ public class DynamicAutoCommands {
 
     // Moves to the chosen reef side while holding the arm at down
     primaryCommandGroup.addCommands(
-        AutoDriveCommands.pathFindToReef(drive, vision, reefSide, constraints, false)
+        AutoDriveCommands.pathFindToReef(drive, vision, reefSide, slowConstraints, false)
             .deadlineFor(
                 ArmControlCommands.armHoldAtCommand(
-                    pivot, elevator, wrist, ArmPosition.HOME, ArmSystem.ALL)));
+                    pivot, elevator, wrist, ArmPosition.STAND_BY, ArmSystem.ALL)));
 
     // Moves arm up to target branch while precise moving the drive
     primaryCommandGroup.addCommands(

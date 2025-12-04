@@ -233,7 +233,7 @@ public class RobotContainer {
             () -> MathUtil.applyDeadband(-controller.getRightX(), OIConstants.driveDeadband)));
 
     // Default command for each subsystem
-    intake.setDefaultCommand(IntakeCommands.intakeRun(intake, () -> -0.25));
+    intake.setDefaultCommand(IntakeCommands.intakeRun(intake, () -> -0.5));
 
     wrist.setDefaultCommand(WristCommands.wristToHome(wrist, false));
 
