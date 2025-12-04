@@ -47,7 +47,7 @@ public final class Constants {
   }
 
   public final class DriveConstants {
-    public static final double maxSpeedMetersPerSec = 4.5;
+    public static final double maxSpeedMetersPerSec = 4.0;
     public static final double maxAngularSpeed = 2 * Math.PI;
     public static final double odometryFrequency = 400.0; // Hz
 
@@ -81,7 +81,7 @@ public final class Constants {
 
     // Drive motor configuration
     public static final int driveMotorCurrentLimit = 75;
-    public static final double wheelRadiusMeters = Units.inchesToMeters(1.697);
+    public static final double wheelRadiusMeters = Units.inchesToMeters(1.461);
     public static final double driveMotorReduction =
         (45.0 * 22.0) / (13.0 * 15.0); // MAXSwerve with 13 pinion teeth
     // and 22 spur teeth
@@ -98,8 +98,8 @@ public final class Constants {
     // Drive PID configuration
     public static final double driveKp = 0.0;
     public static final double driveKd = 0.0;
-    public static final double driveKs = 0.18441;
-    public static final double driveKv = 0.10592;
+    public static final double driveKs = 0.16574;
+    public static final double driveKv = 0.10711;
     public static final double driveSimP = 0.05;
     public static final double driveSimD = 0.0;
     public static final double driveSimKs = 0.02285;
@@ -253,11 +253,11 @@ public final class Constants {
     public static final double homeLength = 0.659;
 
     public static final double level1Length = 0.659;
-    public static final double level2Length = 0.849;
-    public static final double level3Length = 1.179;
-    public static final double level4Length = 1.959;
+    public static final double level2Length = 0.949;
+    public static final double level3Length = 1.379;
+    public static final double level4Length = 1.859;
     public static final double pastStage2 = 1.5;
-    public static final double coralStationLength = 0.689;
+    public static final double coralStationLength = 0.659;
 
     // The number of meter the elevator has to move to active the second stage.
     public static final double secondStageTrip = 0.75;
@@ -285,14 +285,14 @@ public final class Constants {
     public static final double simD = 0.0;
 
     // These are the voltages of the motors to overcome gravity to reduce sliding
-    public static final double realG = 0.13;
+    public static final double realG = 0.1;
     public static final double simG = 0.0;
 
     // Target angle in degrees converted to radians
     public static final double homeAngle = Math.toRadians(0.0);
 
     public static final double level1Angle = Math.toRadians(90.0);
-    public static final double level2Angle = Math.toRadians(168.0);
+    public static final double level2Angle = Math.toRadians(160.0);
     public static final double level3Angle = Math.toRadians(180.0);
     public static final double level4Angle = Math.toRadians(192.0);
     public static final double pastStage2 = Math.toRadians(90.0);
@@ -313,7 +313,7 @@ public final class Constants {
 
     public static final double motorToWheelRatio = 3.0;
 
-    public static final int maxCurrentLimit = 40;
+    public static final int maxCurrentLimit = 30;
     public static final double maxVoltage = 12;
   }
 

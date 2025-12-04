@@ -58,6 +58,10 @@ public class PivotIOReal implements PivotIO {
             m_rightEncoder.setPosition(
                 this.m_rightMotor.getAbsoluteEncoder().getPosition() * (Math.PI / 2.0)));
 
+    if (MathUtil.isNear(0.0, this.m_rightEncoder.getPosition(), 0.1)) {
+      tryUntilOk(m_rightMotor, 5, () -> m_rightEncoder.setPosition(Math.toDegrees(23.606)));
+    }
+
     this.m_pivotPIDController =
         new PIDController(PivotConstants.realP, PivotConstants.realI, PivotConstants.realD);
   }

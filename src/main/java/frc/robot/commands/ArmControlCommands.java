@@ -339,7 +339,7 @@ public class ArmControlCommands {
       case PAST_STAGE2:
         returnArray =
             new double[] {
-              PivotConstants.level3Angle, ElevatorConstants.pastStage2, WristConstants.pastStage2
+              PivotConstants.level4Angle, ElevatorConstants.pastStage2, WristConstants.pastStage2
             };
         break;
       case CORAL_STATION:
@@ -381,7 +381,7 @@ public class ArmControlCommands {
       case STAND_BY:
         returnArray =
             new double[] {
-              PivotConstants.level2Angle, ElevatorConstants.homeLength, WristConstants.level1Angle
+              PivotConstants.level4Angle, ElevatorConstants.homeLength, WristConstants.level1Angle
             };
         break;
     }
