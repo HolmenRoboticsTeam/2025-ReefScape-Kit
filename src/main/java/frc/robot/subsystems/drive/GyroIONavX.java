@@ -50,7 +50,7 @@ public class GyroIONavX implements GyroIO {
     yawPositionQueue.clear();
   }
 
-  public void setYawPosition(double angle) {
-    navX.setAngleAdjustment(angle);
+  public void reset() {
+    navX.reset();
   }
 }
