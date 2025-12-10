@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ClimberConstants;
@@ -25,7 +26,6 @@ public class ClimberIOReal implements ClimberIO {
   private PIDController pidController;
 
   private double targetAngle = 0.0;
-  private double appliedVolts = 0.0;
 
   public ClimberIOReal() {
     climberMotor = new SparkMax(ClimberConstants.motorID, MotorType.kBrushless);
