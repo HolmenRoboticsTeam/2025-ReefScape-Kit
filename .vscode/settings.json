@@ -66,12 +66,14 @@
     "editor.defaultFormatter": "redhat.java"
   },
   "cSpell.words": [
+    "AHRS",
     "debouncers",
     "dtheta",
     "Megatag",
     "Quasistatic",
     "servoing",
     "teleop",
+    "traj",
     "Uncomitted",
     "URCL",
     "wpilibj",

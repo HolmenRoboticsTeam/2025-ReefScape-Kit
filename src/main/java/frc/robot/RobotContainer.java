@@ -391,7 +391,7 @@ public class RobotContainer {
                 ArmControlCommands.armHoldAtCommand(
                     pivot, elevator, wrist, ArmPosition.CAGE, ArmSystem.ALL)));
 
-    // TODO: set the value of PivotConstants.maxPivotAngle to the robot doesn't rip itself apart.
+    // This try to lead the pivot back until the gyro is balanced
     // cageStow.onFalse(
     //     ClimberCommands.climberToTarget(climber, () -> ClimberConstants.homeAngle, false)
     //         .alongWith(
